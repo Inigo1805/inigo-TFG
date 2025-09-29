@@ -2,7 +2,7 @@
 extends EditorScript
 
 const BASE_PATH := "res://sprites/animaciones/"
-const DEFAULT_FPS := 24  # cambia este valor a la velocidad que quieras
+const DEFAULT_FPS := 24  # Velocidad de la animación
 
 func _run():
 	var root := DirAccess.open(BASE_PATH)
