@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://db5fsxvewxs50"]
+
+[ext_resource type="SpriteFrames" uid="uid://dx05r6aeborg1" path="res://sprites/animaciones/green/green.tres" id="1_glpr6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pjt0s"]
+radius = 30.0
+height = 108.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+texture_filter = 6
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_glpr6")
+animation = &"light_punch2"
+frame = 1
+frame_progress = 0.4118358
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+shape = SubResource("CapsuleShape2D_pjt0s")

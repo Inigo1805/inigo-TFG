@@ -1,0 +1,20 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[Godot_DragonBones]
+
+auto_generate_dbfactory=true
+
+[application]
+
+config/name="TFG"
+run/main_scene="uid://db5fsxvewxs50"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
