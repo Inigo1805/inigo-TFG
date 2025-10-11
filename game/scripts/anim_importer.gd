@@ -2,7 +2,7 @@
 extends EditorScript
 
 const BASE_PATH := "res://sprites/animaciones/"
-const DEFAULT_FPS := 24  # cambia este valor a la velocidad que quieras
+const DEFAULT_FPS := 24  # Velocidad de la animación
 
 func _run():
 	var root := DirAccess.open(BASE_PATH)
@@ -40,6 +40,6 @@ func _run():
 		var save_path := char_path + character + ".tres"
 		var err := ResourceSaver.save(sprite_frames, save_path)
 		if err == OK:
-			print("✅ Generado:", save_path)
+			print("Generado:", save_path)
 		else:
-			push_error("❌ Error al guardar: %s" % save_path)
+			push_error("Error al guardar: %s" % save_path)
