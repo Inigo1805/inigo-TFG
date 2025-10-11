@@ -1,20 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://db5fsxvewxs50"]
+[gd_scene load_steps=4 format=3 uid="uid://db5fsxvewxs50"]
 
 [ext_resource type="SpriteFrames" uid="uid://dx05r6aeborg1" path="res://sprites/animaciones/green/green.tres" id="1_glpr6"]
+[ext_resource type="Script" uid="uid://dohi0mqmwmfx8" path="res://scripts/character.gd" id="1_wa5vi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pjt0s"]
-radius = 30.0
-height = 108.0
+radius = 43.0
+height = 162.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 texture_filter = 6
+script = ExtResource("1_wa5vi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_glpr6")
-animation = &"light_punch2"
-frame = 1
-frame_progress = 0.4118358
+animation = &"basic_idle1"
+frame_progress = 0.6607003
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 12)
+position = Vector2(0, 24)
 shape = SubResource("CapsuleShape2D_pjt0s")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 106)
+
+[node name="JumpHeightTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="timeout" from="JumpHeightTimer" to="." method="_on_jump_height_timer_timeout"]
