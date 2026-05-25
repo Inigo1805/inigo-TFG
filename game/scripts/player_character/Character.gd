@@ -207,23 +207,35 @@ func _on_stun_timeout() -> void:
 		root_playback.travel("Movimiento")
 	
 func aplicar_block_stun(dir: Vector2, force: float) -> void:
-	# Estado físico
-	velocity = dir * force
+	# Interrumpuimos acciones y aplicamos estado de hitstun (aunque no sea un "hit")
 	is_attacking = false
-	is_hitstun = true # Lo tratamos como hitstun para que no pueda moverse
-	# Animación
+	is_hitstun = true
+	
+	# Empuje físico al atacante (hacia atrás por rebotar contra el escudo)
+	velocity = dir.normalized() * force
+	
+	# Lanzamos animaciones en el State Machine de Damage
 	root_playback.travel("Damage")
 	if damage_playback:
-		damage_playback.travel("hitstun") # TODO block_stun en lugar de hitstun
-	# Feedback visual
+		# TODO: crear una animación propia de rebote de escudo "block_stun" 
+		damage_playback.travel("hitstun") 
+	
+	# 4. Feedback visual (Color naranja/amarillo para diferenciarlo de recibir daño)
 	var tween = create_tween()
 	tween.tween_property(sprite, "modulate", Color.ORANGE, 0.1)
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
-	# Recuperación
-	# El blockstun suele ser más corto que el hitstun normal para que el castigo sea rápido
-	await get_tree().create_timer(0.3).timeout
-	is_hitstun = false
-	root_playback.travel("Movimiento")
+	
+	# 5. Configurar el StunTimer con un tiempo fijo para el Blockstun
+	stun_timer.wait_time = 0.3 # Tiempo en segundos que se queda "vendido" el atacante
+	stun_timer.one_shot = true
+	
+	# Limpieza de conexiones previas de seguridad
+	if stun_timer.timeout.is_connected(_on_stun_timeout):
+		stun_timer.timeout.disconnect(_on_stun_timeout)
+		
+	# Conectamos a nuestra función de recuperación centralizada
+	stun_timer.timeout.connect(_on_stun_timeout, CONNECT_ONE_SHOT)
+	stun_timer.start()
 
 func actualizar_direccion_hitboxes() -> void:
 	# Determinamos el multiplicador según la escala de los visuales
