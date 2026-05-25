@@ -64,7 +64,7 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	# Aplicar Gravedad
-	MoveFunctions.aplicar_gravedad(self, delta, GRAVITY)
+	JumpFunctions.aplicar_gravedad(self, delta, GRAVITY)
 	if is_hitstun:
 		move_and_slide()
 		return 
@@ -151,7 +151,7 @@ func _update_animation_state() -> void:
 	if is_attacking or is_hitstun: return
 	var new_state: String = ""
 	if not grounded: new_state = "jump" if velocity.y < 0 else "fall"
-	else: new_state = "run" if (abs(velocity.x) > 300) else ("walk" if abs(velocity.x) > 10 else "idle")
+	else: new_state = "run" if (abs(velocity.x) > Globals.RUN_SPEED) else ("walk" if abs(velocity.x) > Globals.WALK_SPEED else "idle")
 	if new_state != last_movimiento_state:
 		AnimationFunctions.change_movimiento_state(movimiento_playback, idle_playback, new_state)
 		last_movimiento_state = new_state
@@ -181,7 +181,7 @@ func take_damage(damage: float, knockback_vector: Vector2, knockback_force: floa
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
 	
 	# Calculamos el tiempo de hitstun en funcion del daño acumulado
-	var tiempo_stun: float = 0.15 + (porcentaje_daño / 100.0) * 0.35
+	var tiempo_stun: float = Globals.MIN_HITSTUN_TIME + (porcentaje_daño / 100.0) * Globals.HITSTUN_TIME_DAMAGE_MULT
 	
 	# Limitamos el stun a 1 segundo
 	tiempo_stun = clamp(tiempo_stun, 0.15, 1)
@@ -220,13 +220,13 @@ func aplicar_block_stun(dir: Vector2, force: float) -> void:
 		# TODO: crear una animación propia de rebote de escudo "block_stun" 
 		damage_playback.travel("hitstun") 
 	
-	# 4. Feedback visual (Color naranja/amarillo para diferenciarlo de recibir daño)
+	# Feedback visual (Color naranja/amarillo para diferenciarlo de recibir daño)
 	var tween = create_tween()
 	tween.tween_property(sprite, "modulate", Color.ORANGE, 0.1)
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
 	
-	# 5. Configurar el StunTimer con un tiempo fijo para el Blockstun
-	stun_timer.wait_time = 0.3 # Tiempo en segundos que se queda "vendido" el atacante
+	# Configurar el StunTimer con un tiempo fijo para el Blockstun
+	stun_timer.wait_time = Globals.TIEMPO_BLOCKSTUN
 	stun_timer.one_shot = true
 	
 	# Limpieza de conexiones previas de seguridad
