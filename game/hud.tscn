@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bog6hkuij7255"]
+
+[ext_resource type="Script" uid="uid://cj0g7n7l25s47" path="res://scripts/hud.gd" id="1_37p78"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1001647321]
+script = ExtResource("1_37p78")
+
+[node name="Container" type="HBoxContainer" parent="." unique_id=518662506]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Player1_UI" type="VBoxContainer" parent="Container" unique_id=539957112]
+layout_mode = 2
+
+[node name="NombreLabel" type="Label" parent="Container/Player1_UI" unique_id=1115847837]
+layout_mode = 2
+text = "Jugador 1"
+
+[node name="PorcentajeLabel" type="Label" parent="Container/Player1_UI" unique_id=1716840069]
+layout_mode = 2
+text = "0.0%"
+
+[node name="Player2_UI" type="VBoxContainer" parent="Container" unique_id=2131761517]
+layout_mode = 2
+
+[node name="NombreLabel" type="Label" parent="Container/Player2_UI" unique_id=1676415378]
+layout_mode = 2
+text = "Jugador 2"
+
+[node name="PorcentajeLabel" type="Label" parent="Container/Player2_UI" unique_id=1024898170]
+layout_mode = 2
+text = "0.0%"

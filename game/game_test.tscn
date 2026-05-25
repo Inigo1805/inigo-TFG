@@ -1,15 +1,25 @@
 [gd_scene format=3 uid="uid://cuck6uqdvqclr"]
 
 [ext_resource type="PackedScene" uid="uid://da7wxc2ca5c3p" path="res://plataforma.tscn" id="1_gkp3j"]
+[ext_resource type="Script" uid="uid://kg0a0x2tua2q" path="res://scripts/game_test.gd" id="1_r27sn"]
 [ext_resource type="PackedScene" uid="uid://db5fsxvewxs50" path="res://character.tscn" id="2_4d3oi"]
+[ext_resource type="PackedScene" uid="uid://bog6hkuij7255" path="res://hud.tscn" id="3_4d3oi"]
 
 [node name="game_test" type="Node2D" unique_id=1036480288]
+script = ExtResource("1_r27sn")
 
 [node name="plataforma" parent="." unique_id=698165809 instance=ExtResource("1_gkp3j")]
-
-[node name="CharacterBody2D" parent="." unique_id=1452255452 instance=ExtResource("2_4d3oi")]
-position = Vector2(165, -350)
+collision_layer = 64
+collision_mask = 0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=514428298]
 position = Vector2(0, -384)
 zoom = Vector2(0.5, 0.5)
+
+[node name="Character" parent="." unique_id=908007278 instance=ExtResource("2_4d3oi")]
+position = Vector2(321, -366)
+
+[node name="Character2" parent="." unique_id=1347353149 groups=["cpu"] instance=ExtResource("2_4d3oi")]
+position = Vector2(-217, -369)
+
+[node name="HUD" parent="." unique_id=1001647321 instance=ExtResource("3_4d3oi")]
