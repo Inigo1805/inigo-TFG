@@ -59,12 +59,17 @@ func _ready() -> void:
 	AnimationFunctions.change_movimiento_state(movimiento_playback, idle_playback, "idle")
 
 func _process(_delta: float) -> void:
-	self.grounded = ground_check.is_colliding()
+	# Debug visual de la orientación del personaje
 	self.facing = "DER >" if visuals.scale.x < 0 else "< IZQ"
 
 func _physics_process(delta: float) -> void:
+	# Sincronizar el suelo con el hilo de físicas antes de calcular nada
+	self.grounded = ground_check.is_colliding()
+
 	# Aplicar Gravedad
 	JumpFunctions.aplicar_gravedad(self, delta, GRAVITY)
+	
+	# INTERRUPCIÓN TOTAL POR HITSTUN
 	if is_hitstun:
 		move_and_slide()
 		return 
@@ -76,25 +81,52 @@ func _physics_process(delta: float) -> void:
 		elif not input_fast_fall and is_fast_falling:
 			JumpFunctions.cancelar_fast_fall(self)
 
-	# Acciones de Movimiento
-	if is_attacking and grounded:
-		velocity.x = move_toward(velocity.x, 0, SPEED * 0.2)
-	else:
-		mover_lateralmente(input_x)
+	# Acciones de Movimiento Horizontal
+	mover_lateralmente(input_x)
 		
-	# Procesar Salto
+	# Procesar Salto y Empujes por proximidad
 	JumpFunctions.procesar_salto(self, input_salto, timer_salto, JUMP_FORCE)
 	_gestionar_empuje_oponente(delta)
+	
+	# Ejecutar movimiento final y animar
 	move_and_slide()
 	_update_animation_state()
 
 func mover_lateralmente(dir: float) -> void:
+	# FILTRO DE ZONA MUERTA PARA EL MANDO
+	# Si el joystick está a menos de un 10% de su capacidad, lo forzamos a 0.
+	# Esto ignora el viaje de retorno del muelle físico.
+	if abs(dir) < 0.1:
+		dir = 0.0
+
+	# BLOQUEO POR ATAQUE EN SUELO
+	if is_attacking and grounded:
+		velocity.x = move_toward(velocity.x, 0, SPEED * 0.2)
+		return
+
+	# Calcular velocidad objetivo (Target Speed)
 	var multiplier = 1.6 if is_running else 1.0
-	velocity.x = dir * SPEED * multiplier
+	var target_speed = dir * SPEED * multiplier
 	
+	# Calcular la aceleración/inercia según si está en el aire o en el suelo
+	var accel: float
+	if not grounded:
+		target_speed *= 1.2
+		# Ahora, gracias a la zona muerta, en cuanto sueltes el joystick 
+		# caerá por debajo de 0.1, 'dir' será 0.0, y activará el 0.02 instantáneo.
+		accel = SPEED * (0.8 if dir != 0 else 0.02)
+	else:
+		accel = SPEED * (0.2 if dir != 0 else 0.3)
+		
+	# Aplicar el cambio de velocidad progresivo
+	velocity.x = move_toward(velocity.x, target_speed, accel)
+	
+	# Volteo visual y actualización de vectores de Hitboxes
 	if can_flip and dir != 0:
-		visuals.scale.x = -1 if dir > 0 else 1
-		actualizar_direccion_hitboxes()
+		var nueva_escala = -1 if dir > 0 else 1
+		if visuals.scale.x != nueva_escala:
+			visuals.scale.x = nueva_escala
+			actualizar_direccion_hitboxes()
 
 # FUNCIONES DE ATAQUE (Invocables desde controladores)
 
@@ -113,55 +145,11 @@ func _ejecutar_accion(anim_name: String, es_suelo: bool) -> void:
 		root_playback.travel("AtaquesAire")
 		ataque_aire_playback.travel(anim_name)
 
-func _gestionar_empuje_oponente(delta: float) -> void:
-	# Obtenemos el primer área que esté solapando
-	var areas = push_area.get_overlapping_areas()
-	
-	if areas.size() > 0:
-		var oponente = areas[0].get_parent()
-		
-		# Verificamos que sea un Character y no nosotros mismos
-		if oponente is Character and oponente != self:
-			# Calculamos dirección (mí posición relativa al oponente)
-			var diff_x = global_position.x - oponente.global_position.x
-			
-			# Romper empate si están en el mismo píxel
-			if abs(diff_x) < 0.1: 
-				diff_x = 1.0 if randi_range(0,1) == 1 else -1.0
-			
-			# Aplicar empuje directo a la velocidad
-			velocity.x += sign(diff_x) * PUSH_FORCE * delta * 60
-
-
-func atacar_jab():			_ejecutar_accion("jab1", true)
-func atacar_tilt_up():		_ejecutar_accion("up_tilt", true)
-func atacar_tilt_down():	_ejecutar_accion("down_tilt", true)
-func atacar_tilt_side():	_ejecutar_accion("side_tilt", true)
-func atacar_strong_up():	_ejecutar_accion("up_strong", true)
-func atacar_strong_down():	_ejecutar_accion("down_strong", true)
-func atacar_strong_side():	_ejecutar_accion("side_strong", true)
-func atacar_nair():			_ejecutar_accion("nair", false)
-func atacar_uair():			_ejecutar_accion("uair", false)
-func atacar_dair():			_ejecutar_accion("dair", false)
-func atacar_fair():			_ejecutar_accion("fair", false)
-func atacar_bair():			_ejecutar_accion("bair", false)
-func bloquear():			_ejecutar_accion("block", true)
-
-func _update_animation_state() -> void:
-	if is_attacking or is_hitstun: return
-	var new_state: String = ""
-	if not grounded: new_state = "jump" if velocity.y < 0 else "fall"
-	else: new_state = "run" if (abs(velocity.x) > Globals.RUN_SPEED) else ("walk" if abs(velocity.x) > Globals.WALK_SPEED else "idle")
-	if new_state != last_movimiento_state:
-		AnimationFunctions.change_movimiento_state(movimiento_playback, idle_playback, new_state)
-		last_movimiento_state = new_state
-
 func take_damage(damage: float, knockback_vector: Vector2, knockback_force: float) -> void:
 	# Acumulamos daño y notificamos a la HUD
 	porcentaje_daño += damage
 	damage_changed.emit(porcentaje_daño, self)
 	print("Daño actual: ", porcentaje_daño, "%")
-	
 	# Interrumpimos acciones actuales
 	is_attacking = false
 	is_hitstun = true
@@ -182,60 +170,55 @@ func take_damage(damage: float, knockback_vector: Vector2, knockback_force: floa
 	
 	# Calculamos el tiempo de hitstun en funcion del daño acumulado
 	var tiempo_stun: float = Globals.MIN_HITSTUN_TIME + (porcentaje_daño / 100.0) * Globals.HITSTUN_TIME_DAMAGE_MULT
-	
 	# Limitamos el stun a 1 segundo
-	tiempo_stun = clamp(tiempo_stun, 0.15, 1)
-	
+	tiempo_stun = clamp(tiempo_stun, 0.15, 1.0)
 	# Configuramos y arrancamos el StunTimer
 	stun_timer.wait_time = tiempo_stun
 	stun_timer.one_shot = true
 	
-	# Si el temporizador ya estaba corriendo (porque nos pegaron antes hace poco), 
-	# lo desconectamos para evitar que la señal antigua nos quite el stun antes de tiempo.
+	# Desconectar señales previas si nos golpean consecutivamente como parte de un combo
 	if stun_timer.timeout.is_connected(_on_stun_timeout):
 		stun_timer.timeout.disconnect(_on_stun_timeout)
 		
 	stun_timer.timeout.connect(_on_stun_timeout, CONNECT_ONE_SHOT)
 	stun_timer.start()
 
-
-# --- FUNCIÓN LLAMADA AL TERMINAR EL TIMER ---
-func _on_stun_timeout() -> void:
-	# Devolvemos el control al personaje si sigue vivo/en hitstun
-	if is_hitstun:
-		is_hitstun = false
-		root_playback.travel("Movimiento")
-	
 func aplicar_block_stun(dir: Vector2, force: float) -> void:
 	# Interrumpuimos acciones y aplicamos estado de hitstun (aunque no sea un "hit")
 	is_attacking = false
 	is_hitstun = true
-	
 	# Empuje físico al atacante (hacia atrás por rebotar contra el escudo)
 	velocity = dir.normalized() * force
-	
 	# Lanzamos animaciones en el State Machine de Damage
 	root_playback.travel("Damage")
 	if damage_playback:
 		# TODO: crear una animación propia de rebote de escudo "block_stun" 
 		damage_playback.travel("hitstun") 
-	
 	# Feedback visual (Color naranja/amarillo para diferenciarlo de recibir daño)
 	var tween = create_tween()
 	tween.tween_property(sprite, "modulate", Color.ORANGE, 0.1)
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
-	
 	# Configurar el StunTimer con un tiempo fijo para el Blockstun
 	stun_timer.wait_time = Globals.TIEMPO_BLOCKSTUN
 	stun_timer.one_shot = true
-	
 	# Limpieza de conexiones previas de seguridad
 	if stun_timer.timeout.is_connected(_on_stun_timeout):
 		stun_timer.timeout.disconnect(_on_stun_timeout)
-		
-	# Conectamos a nuestra función de recuperación centralizada
+	
 	stun_timer.timeout.connect(_on_stun_timeout, CONNECT_ONE_SHOT)
 	stun_timer.start()
+	
+# --- FUNCIÓN LLAMADA AL TERMINAR EL TIMER ---
+func _on_stun_timeout() -> void:
+	if is_hitstun:
+		is_hitstun = false
+		
+		# Limpieza profunda de inputs fantasmas para evitar arranques mecánicos raros
+		input_x = 0.0
+		input_salto = false
+		input_fast_fall = false
+		
+		root_playback.travel("Movimiento")
 
 func actualizar_direccion_hitboxes() -> void:
 	# Determinamos el multiplicador según la escala de los visuales
@@ -244,7 +227,6 @@ func actualizar_direccion_hitboxes() -> void:
 	var multiplicador_x = -sign(visuals.scale.x)
 	
 	var nodos_categoria = $Visuals/Hitboxes.get_children()
-	
 	for categoria in nodos_categoria:
 		for hitbox in categoria.get_children():
 			if hitbox is Hitbox:
@@ -253,7 +235,43 @@ func actualizar_direccion_hitboxes() -> void:
 					hitbox.base_knockback_vector.x * multiplicador_x,
 					hitbox.base_knockback_vector.y
 				)
-	
+				
+func _gestionar_empuje_oponente(delta: float) -> void:
+	var areas = push_area.get_overlapping_areas()
+	if areas.size() > 0:
+		var oponente = areas[0].get_parent()
+		if oponente is Character and oponente != self:
+			var diff_x = global_position.x - oponente.global_position.x
+			if abs(diff_x) < 0.1: 
+				diff_x = 1.0 if randi_range(0,1) == 1 else -1.0
+			velocity.x += sign(diff_x) * PUSH_FORCE * delta * 60
+
+# ACCIONES
+func atacar_jab():			_ejecutar_accion("jab1", true)
+func atacar_tilt_up():		_ejecutar_accion("up_tilt", true)
+func atacar_tilt_down():	_ejecutar_accion("down_tilt", true)
+func atacar_tilt_side():	_ejecutar_accion("side_tilt", true)
+func atacar_strong_up():	_ejecutar_accion("up_strong", true)
+func atacar_strong_down():	_ejecutar_accion("down_strong", true)
+func atacar_strong_side():	_ejecutar_accion("side_strong", true)
+func atacar_nair():			_ejecutar_accion("nair", false)
+func atacar_uair():			_ejecutar_accion("uair", false)
+func atacar_dair():			_ejecutar_accion("dair", false)
+func atacar_fair():			_ejecutar_accion("fair", false)
+func atacar_bair():			_ejecutar_accion("bair", false)
+func bloquear():			_ejecutar_accion("block", true)
+
+func _update_animation_state() -> void:
+	if is_attacking or is_hitstun: return
+	var new_state: String = ""
+	if not grounded: 
+		new_state = "jump" if velocity.y < 0 else "fall"
+	else: 
+		new_state = "run" if (abs(velocity.x) > Globals.RUN_SPEED) else ("walk" if abs(velocity.x) > Globals.WALK_SPEED else "idle")
+		
+	if new_state != last_movimiento_state:
+		AnimationFunctions.change_movimiento_state(movimiento_playback, idle_playback, new_state)
+		last_movimiento_state = new_state
 
 func _on_combo_timer_timeout() -> void:
 	animation_tree["parameters/AtaquesSuelo/conditions/quiere_combo"] = false
@@ -266,5 +284,5 @@ func debug_estado() -> void:
 	var mira_str = self.facing
 	var combo_val = animation_tree.get("parameters/AtaquesSuelo/conditions/quiere_combo")
 	var combo_str = "[color=magenta]COMBO_ON[/color]" if combo_val else "------"
-	print_rich("|[b] ANIM:[/b] %-25s |[b] POS:[/b] %-8s |[b] ATK:[/b] %-15s |[b] FLIP:[/b] %-12s |[b] MIRA:[/b] %-8s |[b] JAB:[/b] %-10s | V(%+4d, %+4d)" 
+	print_rich("|[b] ANIM:[/b] %-25s |[b] POS:[/b] %-8s |[b] ATK:[/b] %-15s |[b] FLIP:[/b] %-12s |[b] MIRA:[/b] %-8s |[b] JAB:[/b] %-10s | V(%+4d, %+4d)"
 		% [anim_ruta, grounded_str, atk_str, flip_str, mira_str, combo_str, velocity.x, velocity.y])
