@@ -3,13 +3,14 @@ class_name Character
 
 # NODOS
 @onready var ground_check: RayCast2D = $RayCast2D
-@onready var timer_salto: Timer = $JumpHeightTimer
-@onready var combo_timer: Timer = $ComboTimer 
-@onready var stun_timer: Timer = $StunTimer
+@onready var timer_salto: Timer = $Timers/JumpHeightTimer
+@onready var combo_timer: Timer = $Timers/ComboTimer 
+@onready var stun_timer: Timer = $Timers/StunTimer
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var sprite: AnimatedSprite2D = $Visuals/Sprite
-@onready var visuals: Node2D = $Visuals 
-@onready var push_area: Area2D = $PushArea
+@onready var push_area: Area2D = $Visuals/PushArea
+@onready var visuals: Node2D = $Visuals
+@onready var SFX: Node2D = $SFX
 
 # PLAYBACKS
 @onready var root_playback = animation_tree.get("parameters/playback")
@@ -48,7 +49,12 @@ var push_velocity: float = 0.0
 # SEÑALES
 signal damage_changed(new_percentage: float, character: Character)
 
+func set_sprite() -> void: #TODO esto servirá para elegir personaje, ahora mismo solo está el blanco
+	var frames = load("res://sprites/animaciones/white/white.tres")
+	sprite.set_sprite_frames(frames)
+
 func _ready() -> void:
+	set_sprite()
 	timer_salto.wait_time = Globals.MIN_JUMP_TIME
 	timer_salto.one_shot = true
 	combo_timer.wait_time = Globals.MIN_COMBO_TIMER
@@ -64,6 +70,9 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	# Sincronizar el suelo con el hilo de físicas antes de calcular nada
+	if not self.grounded:
+		self.grounded = ground_check.is_colliding()
+		if self.grounded: SFX.land.play()
 	self.grounded = ground_check.is_colliding()
 
 	# Aplicar Gravedad
@@ -85,7 +94,8 @@ func _physics_process(delta: float) -> void:
 	mover_lateralmente(input_x)
 		
 	# Procesar Salto y Empujes por proximidad
-	JumpFunctions.procesar_salto(self, input_salto, timer_salto, JUMP_FORCE)
+	if JumpFunctions.procesar_salto(self, input_salto, timer_salto, JUMP_FORCE):
+		SFX.jump.play()
 	_gestionar_empuje_oponente(delta)
 	
 	# Ejecutar movimiento final y animar
@@ -147,6 +157,7 @@ func _ejecutar_accion(anim_name: String, es_suelo: bool) -> void:
 
 func take_damage(damage: float, knockback_vector: Vector2, knockback_force: float) -> void:
 	# Acumulamos daño y notificamos a la HUD
+	SFX.punch_hit.play()
 	porcentaje_daño += damage
 	damage_changed.emit(porcentaje_daño, self)
 	print("Daño actual: ", porcentaje_daño, "%")
@@ -247,19 +258,44 @@ func _gestionar_empuje_oponente(delta: float) -> void:
 			velocity.x += sign(diff_x) * PUSH_FORCE * delta * 60
 
 # ACCIONES
-func atacar_jab():			_ejecutar_accion("jab1", true)
-func atacar_tilt_up():		_ejecutar_accion("up_tilt", true)
-func atacar_tilt_down():	_ejecutar_accion("down_tilt", true)
-func atacar_tilt_side():	_ejecutar_accion("side_tilt", true)
-func atacar_strong_up():	_ejecutar_accion("up_strong", true)
-func atacar_strong_down():	_ejecutar_accion("down_strong", true)
-func atacar_strong_side():	_ejecutar_accion("side_strong", true)
-func atacar_nair():			_ejecutar_accion("nair", false)
-func atacar_uair():			_ejecutar_accion("uair", false)
-func atacar_dair():			_ejecutar_accion("dair", false)
-func atacar_fair():			_ejecutar_accion("fair", false)
-func atacar_bair():			_ejecutar_accion("bair", false)
-func bloquear():			_ejecutar_accion("block", true)
+func atacar_jab():
+	_ejecutar_accion("jab1", true)
+	SFX.punch_woosh_1.play()
+func atacar_tilt_up():
+	_ejecutar_accion("up_tilt", true)
+	SFX.punch_woosh_1.play()
+func atacar_tilt_down():
+	_ejecutar_accion("down_tilt", true)
+	SFX.punch_woosh_1.play()
+func atacar_tilt_side():
+	_ejecutar_accion("side_tilt", true)
+	SFX.punch_woosh_1.play()
+func atacar_strong_up():
+	_ejecutar_accion("up_strong", true)
+	SFX.punch_woosh_2.play()
+func atacar_strong_down():
+	_ejecutar_accion("down_strong", true)
+	SFX.punch_woosh_2.play()
+func atacar_strong_side():
+	_ejecutar_accion("side_strong", true)
+	SFX.punch_woosh_2.play()
+func atacar_nair():
+	_ejecutar_accion("nair", false)
+	SFX.punch_woosh_1.play()
+func atacar_uair():
+	_ejecutar_accion("uair", false)
+	SFX.punch_woosh_1.play()
+func atacar_dair():
+	_ejecutar_accion("dair", false)
+	SFX.punch_woosh_1.play()
+func atacar_fair():
+	_ejecutar_accion("fair", false)
+	SFX.punch_woosh_1.play()
+func atacar_bair():
+	_ejecutar_accion("bair", false)
+	SFX.punch_woosh_1.play()
+func bloquear():
+	_ejecutar_accion("block", true)
 
 func _update_animation_state() -> void:
 	if is_attacking or is_hitstun: return

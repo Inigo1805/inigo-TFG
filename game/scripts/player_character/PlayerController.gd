@@ -1,6 +1,6 @@
 extends Node
 
-@onready var character: Character = get_parent()
+@onready var character: Character = get_parent().get_parent()
 
 var last_tap_time_derecha: float = 0.0
 var last_tap_time_izquierda: float = 0.0
@@ -8,7 +8,7 @@ const DOUBLE_TAP_DELAY: float = Globals.DOUBLE_TAP_DELAY
 
 func _ready() -> void:
 	# Si este personaje es una CPU, desactivamos este controlador
-	if self.get_parent().is_in_group("cpu"): 
+	if self.get_parent().get_parent().is_in_group("cpu"): 
 		set_process_unhandled_input(false)
 		set_physics_process(false)
 

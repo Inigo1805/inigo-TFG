@@ -1,7 +1,7 @@
 extends Node
 
 # Referencias
-@onready var controlled_character: Character = get_parent()
+@onready var controlled_character: Character = get_parent().get_parent()
 var target: CharacterBody2D = null 
 
 # TODO Configuraciones de comportamiento, hay que mejorar
@@ -11,7 +11,7 @@ var target: CharacterBody2D = null
 
 func _ready() -> void:
 	# Si este personaje no está marcado como CPU, desactivamos este cerebro
-	if not self.get_parent().is_in_group("cpu"):
+	if not self.get_parent().get_parent().is_in_group("cpu"):
 		set_physics_process(false)
 		return
 	

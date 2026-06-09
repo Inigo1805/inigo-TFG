@@ -32,6 +32,11 @@ config/icon="res://icon.svg"
 
 Globals="*res://scripts/Globals.gd"
 
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=896
+
 [input]
 
 salto={
@@ -105,3 +110,7 @@ bloqueo={
 2d_physics/layer_6="Wall"
 2d_physics/layer_7="Ground"
 2d_physics/layer_8="PushBox"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
