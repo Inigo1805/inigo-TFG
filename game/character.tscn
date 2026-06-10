@@ -7671,6 +7671,7 @@ script = ExtResource("1_pjt0s")
 position = Vector2(0, 7)
 sprite_frames = ExtResource("2_7tnxx")
 animation = &"basic_idle1"
+frame = 1
 
 [node name="Hitboxes" type="Node2D" parent="Visuals" unique_id=1634018086]
 visible = false

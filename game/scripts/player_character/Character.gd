@@ -50,7 +50,7 @@ var push_velocity: float = 0.0
 signal damage_changed(new_percentage: float, character: Character)
 
 func set_sprite() -> void: #TODO esto servirá para elegir personaje, ahora mismo solo está el blanco
-	var frames = load("res://sprites/animaciones/white/white.tres")
+	var frames = load("res://sprites/animaciones/dark/dark.tres")
 	sprite.set_sprite_frames(frames)
 
 func _ready() -> void:
