@@ -26,7 +26,6 @@ func _ready() -> void:
 	timer_salto.wait_time = Globals.MIN_JUMP_TIME
 	timer_salto.one_shot = true
 	animation_tree.active = true
-	print(animation_tree)
 	root_playback.travel("Movimiento")
 
 func _process(_delta: float) -> void:

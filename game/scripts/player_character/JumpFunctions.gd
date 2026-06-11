@@ -60,12 +60,12 @@ static func corta_salto(player: CharacterBody2D) -> void:
 static func activar_fast_fall(player: CharacterBody2D) -> void:
 	player.is_fast_falling = true
 	#player.velocity.y += 300.0 
-	print("Fast Fall activado")
+	#print("Fast Fall activado")
 	
 static func cancelar_fast_fall(player: CharacterBody2D) -> void:
 	player.is_fast_falling = false
 	#player.velocity.y += -300.0
-	print("Fast Fall desactivado")
+	#print("Fast Fall desactivado")
 	
 static func aplicar_gravedad(player: CharacterBody2D, delta: float, gravity: float) -> void:
 	if not player.grounded:

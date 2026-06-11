@@ -147,20 +147,29 @@ func _ejecutar_accion(anim_name: String, es_suelo: bool) -> void:
 		if current_anim in ["jab1", "jab2"]:
 			animation_tree["parameters/AtaquesSuelo/conditions/quiere_combo"] = true
 			combo_timer.start()
-			return 
-	if es_suelo and grounded:
+			SFX.punch_woosh_1.play()
+		return 
+	if es_suelo and grounded and not is_attacking:
 		root_playback.travel("AtaquesSuelo")
 		ataque_suelo_playback.travel(anim_name)
-	elif not es_suelo and not grounded:
+		if anim_name == "block":
+			pass
+		elif anim_name.ends_with("_strong"):
+			SFX.punch_woosh_2.play()
+		else:
+			SFX.punch_woosh_1.play()
+		return
+	elif not es_suelo and not grounded and not is_attacking:
 		root_playback.travel("AtaquesAire")
 		ataque_aire_playback.travel(anim_name)
+		SFX.punch_woosh_1.play()
 
 func take_damage(damage: float, knockback_vector: Vector2, knockback_force: float) -> void:
 	# Acumulamos daño y notificamos a la HUD
 	SFX.punch_hit.play()
 	porcentaje_daño += damage
 	damage_changed.emit(porcentaje_daño, self)
-	print("Daño actual: ", porcentaje_daño, "%")
+	#print("Daño actual: ", porcentaje_daño, "%")
 	# Interrumpimos acciones actuales
 	is_attacking = false
 	is_hitstun = true
@@ -258,44 +267,19 @@ func _gestionar_empuje_oponente(delta: float) -> void:
 			velocity.x += sign(diff_x) * PUSH_FORCE * delta * 60
 
 # ACCIONES
-func atacar_jab():
-	_ejecutar_accion("jab1", true)
-	SFX.punch_woosh_1.play()
-func atacar_tilt_up():
-	_ejecutar_accion("up_tilt", true)
-	SFX.punch_woosh_1.play()
-func atacar_tilt_down():
-	_ejecutar_accion("down_tilt", true)
-	SFX.punch_woosh_1.play()
-func atacar_tilt_side():
-	_ejecutar_accion("side_tilt", true)
-	SFX.punch_woosh_1.play()
-func atacar_strong_up():
-	_ejecutar_accion("up_strong", true)
-	SFX.punch_woosh_2.play()
-func atacar_strong_down():
-	_ejecutar_accion("down_strong", true)
-	SFX.punch_woosh_2.play()
-func atacar_strong_side():
-	_ejecutar_accion("side_strong", true)
-	SFX.punch_woosh_2.play()
-func atacar_nair():
-	_ejecutar_accion("nair", false)
-	SFX.punch_woosh_1.play()
-func atacar_uair():
-	_ejecutar_accion("uair", false)
-	SFX.punch_woosh_1.play()
-func atacar_dair():
-	_ejecutar_accion("dair", false)
-	SFX.punch_woosh_1.play()
-func atacar_fair():
-	_ejecutar_accion("fair", false)
-	SFX.punch_woosh_1.play()
-func atacar_bair():
-	_ejecutar_accion("bair", false)
-	SFX.punch_woosh_1.play()
-func bloquear():
-	_ejecutar_accion("block", true)
+func atacar_jab(): _ejecutar_accion("jab1", true)
+func atacar_tilt_up(): _ejecutar_accion("up_tilt", true)
+func atacar_tilt_down(): _ejecutar_accion("down_tilt", true)
+func atacar_tilt_side(): _ejecutar_accion("side_tilt", true)
+func atacar_strong_up(): _ejecutar_accion("up_strong", true)
+func atacar_strong_down(): _ejecutar_accion("down_strong", true)
+func atacar_strong_side(): _ejecutar_accion("side_strong", true)
+func atacar_nair(): _ejecutar_accion("nair", false)
+func atacar_uair(): _ejecutar_accion("uair", false)
+func atacar_dair(): _ejecutar_accion("dair", false)
+func atacar_fair(): _ejecutar_accion("fair", false)
+func atacar_bair(): _ejecutar_accion("bair", false)
+func bloquear(): _ejecutar_accion("block", true)
 
 func _update_animation_state() -> void:
 	if is_attacking or is_hitstun: return

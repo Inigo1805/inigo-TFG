@@ -1,0 +1,430 @@
+[gd_scene format=3 uid="uid://da7wxc2ca5c3p"]
+
+[ext_resource type="Texture2D" uid="uid://df7efpwfbpjhj" path="res://sprites/BigPlatform.png" id="1_lowy6"]
+[ext_resource type="Texture2D" uid="uid://b8g20xghnbjla" path="res://sprites/Fondo/Planetas/Planetas1.png" id="2_hp8mn"]
+[ext_resource type="Texture2D" uid="uid://b3rms03o6gpdk" path="res://sprites/Fondo/Planetas/Planetas2.png" id="3_k5unj"]
+[ext_resource type="Texture2D" uid="uid://daqdpjyimtaga" path="res://sprites/Fondo/Planetas/Planetas3.png" id="4_tdaqw"]
+[ext_resource type="Texture2D" uid="uid://cerse3sucybk1" path="res://sprites/Fondo/Planetas/Planetas4.png" id="5_ehore"]
+[ext_resource type="Texture2D" uid="uid://gidkiuus1m8n" path="res://sprites/Fondo/Planetas/Planetas5.png" id="6_uq3ay"]
+[ext_resource type="Texture2D" uid="uid://dhmhnopubkyax" path="res://sprites/Fondo/Planetas/Planetas6.png" id="7_g0mdp"]
+[ext_resource type="Texture2D" uid="uid://bi2sj4vdrggaq" path="res://sprites/Fondo/Planetas/Planetas7.png" id="8_csl8k"]
+[ext_resource type="Texture2D" uid="uid://b1pwows5kanw8" path="res://sprites/Fondo/Planetas/Planetas8.png" id="9_wpr1t"]
+[ext_resource type="Texture2D" uid="uid://bogjkljltindw" path="res://sprites/Fondo/Planetas/Planetas9.png" id="10_3c3gd"]
+[ext_resource type="Texture2D" uid="uid://bvhgud0li3og5" path="res://sprites/Fondo/Planetas/Planetas10.png" id="11_587u2"]
+[ext_resource type="Texture2D" uid="uid://b15sac4inu26" path="res://sprites/Fondo/Planetas/Planetas11.png" id="12_aywlq"]
+[ext_resource type="Texture2D" uid="uid://dqv3c02hlapqh" path="res://sprites/Fondo/Planetas/Planetas12.png" id="13_ll1a1"]
+[ext_resource type="Texture2D" uid="uid://d3up6re6t03cp" path="res://sprites/Fondo/Planetas/Planetas13.png" id="14_e2c13"]
+[ext_resource type="Texture2D" uid="uid://2p8slifvdbwg" path="res://sprites/Fondo/Planetas/Planetas14.png" id="15_k36tw"]
+[ext_resource type="Texture2D" uid="uid://ddfg3f8u4m1h7" path="res://sprites/Fondo/Planetas/Planetas15.png" id="16_1asss"]
+[ext_resource type="Texture2D" uid="uid://detyenwhxj78a" path="res://sprites/Fondo/Planetas/Planetas16.png" id="17_cm815"]
+[ext_resource type="Texture2D" uid="uid://b1wpmwo48ac5m" path="res://sprites/Fondo/Planetas/Planetas17.png" id="18_6xll4"]
+[ext_resource type="Texture2D" uid="uid://cte2q4lbd4tih" path="res://sprites/Fondo/Planetas/Planetas18.png" id="19_0ygkq"]
+[ext_resource type="Texture2D" uid="uid://ceibvlwj6aomu" path="res://sprites/Fondo/Planetas/Planetas19.png" id="20_eps7k"]
+[ext_resource type="Texture2D" uid="uid://dqijm0e4hr12b" path="res://sprites/Fondo/Planetas/Planetas20.png" id="21_7al2n"]
+[ext_resource type="Texture2D" uid="uid://bgu8w8b4luxfw" path="res://sprites/Fondo/Planetas/Planetas21.png" id="22_47m76"]
+[ext_resource type="Texture2D" uid="uid://btsh2o7kfnfnv" path="res://sprites/Fondo/Planetas/Planetas22.png" id="23_5k2n2"]
+[ext_resource type="Texture2D" uid="uid://c3lc0ax2muon5" path="res://sprites/Fondo/Planetas/Planetas23.png" id="24_ftdt5"]
+[ext_resource type="Texture2D" uid="uid://die6urun8qj54" path="res://sprites/Fondo/Planetas/Planetas24.png" id="25_xmvc5"]
+[ext_resource type="Texture2D" uid="uid://dokvd8skqs8sk" path="res://sprites/Fondo/Planetas/Planetas25.png" id="26_8xt3o"]
+[ext_resource type="Texture2D" uid="uid://bddxq0aflyeow" path="res://sprites/Fondo/Planetas/Planetas26.png" id="27_vi03c"]
+[ext_resource type="Texture2D" uid="uid://5yrqosxdjd0a" path="res://sprites/Fondo/Planetas/Planetas27.png" id="28_ps4nv"]
+[ext_resource type="Texture2D" uid="uid://dlwjhbnomevfi" path="res://sprites/Fondo/Planetas/Planetas28.png" id="29_klpvd"]
+[ext_resource type="Texture2D" uid="uid://dmmgrk52ngsgn" path="res://sprites/Fondo/Planetas/Planetas29.png" id="30_i58p4"]
+[ext_resource type="Texture2D" uid="uid://b1argc62e1si4" path="res://sprites/Fondo/Planetas/Planetas30.png" id="31_4kbn3"]
+[ext_resource type="Texture2D" uid="uid://ibsvjgruwama" path="res://sprites/Fondo/Planetas/Planetas31.png" id="32_ryksa"]
+[ext_resource type="Texture2D" uid="uid://cfucu5nl11cwl" path="res://sprites/Fondo/Planetas/Planetas32.png" id="33_kwgjj"]
+[ext_resource type="Texture2D" uid="uid://ddmhvi2vvb2ne" path="res://sprites/Fondo/Planetas/Planetas33.png" id="34_4ixda"]
+[ext_resource type="Texture2D" uid="uid://b4rvx3irf3m43" path="res://sprites/Fondo/Planetas/Planetas34.png" id="35_kk3ci"]
+[ext_resource type="Texture2D" uid="uid://bi1ds0rstvno8" path="res://sprites/Fondo/Planetas/Planetas35.png" id="36_qlq04"]
+[ext_resource type="Texture2D" uid="uid://ckepj6pqvmc5x" path="res://sprites/Fondo/Planetas/Planetas36.png" id="37_ojm07"]
+[ext_resource type="Texture2D" uid="uid://5jbusfpl863r" path="res://sprites/Fondo/Planetas/Planetas37.png" id="38_46re5"]
+[ext_resource type="Texture2D" uid="uid://ffoye18f3xhq" path="res://sprites/Fondo/Planetas/Planetas38.png" id="39_n5jyb"]
+[ext_resource type="Texture2D" uid="uid://b8aw3k7mpdw0a" path="res://sprites/Fondo/Planetas/Planetas39.png" id="40_x3cxo"]
+[ext_resource type="Texture2D" uid="uid://dapo74ewhyirg" path="res://sprites/Fondo/Planetas/Planetas40.png" id="41_wf76j"]
+[ext_resource type="Texture2D" uid="uid://csmrvu8f8w030" path="res://sprites/Fondo/Planetas/Planetas41.png" id="42_v6ux5"]
+[ext_resource type="Texture2D" uid="uid://clmscxu6tqwgy" path="res://sprites/Fondo/Planetas/Planetas42.png" id="43_mlshd"]
+[ext_resource type="Texture2D" uid="uid://7ueqnt1xj4vw" path="res://sprites/Fondo/Planetas/Planetas43.png" id="44_c8i4k"]
+[ext_resource type="Texture2D" uid="uid://cstm2ajw0flqg" path="res://sprites/Fondo/Planetas/Planetas44.png" id="45_1b0gg"]
+[ext_resource type="Texture2D" uid="uid://bi56cd6yk4cj0" path="res://sprites/Fondo/Planetas/Planetas45.png" id="46_2rfet"]
+[ext_resource type="Texture2D" uid="uid://q628tum1lfdk" path="res://sprites/Fondo/Planetas/Planetas46.png" id="47_f4mya"]
+[ext_resource type="Texture2D" uid="uid://bh64fx41dmjmf" path="res://sprites/Fondo/Planetas/Planetas47.png" id="48_wk6ue"]
+[ext_resource type="Texture2D" uid="uid://blupk04innruw" path="res://sprites/Fondo/Planetas/Planetas48.png" id="49_t1t36"]
+[ext_resource type="Texture2D" uid="uid://dtydbbfra1oxo" path="res://sprites/Fondo/Planetas/Planetas49.png" id="50_bcuii"]
+[ext_resource type="Texture2D" uid="uid://3kowb7s8dmyx" path="res://sprites/Fondo/Planetas/Planetas50.png" id="51_jj7cv"]
+[ext_resource type="Texture2D" uid="uid://k6k73u70v4kb" path="res://sprites/Fondo/Planetas/Planetas51.png" id="52_vv66s"]
+[ext_resource type="Texture2D" uid="uid://da63hcm2bypkj" path="res://sprites/Fondo/Planetas/Planetas52.png" id="53_iexoc"]
+[ext_resource type="Texture2D" uid="uid://b1ki73h4gdp4b" path="res://sprites/Fondo/Planetas/Planetas53.png" id="54_4nvnu"]
+[ext_resource type="Texture2D" uid="uid://dvyrvqsjxh3qi" path="res://sprites/Fondo/Planetas/Planetas54.png" id="55_r7204"]
+[ext_resource type="Texture2D" uid="uid://1ttvcu8kwclq" path="res://sprites/Fondo/Planetas/Planetas55.png" id="56_maidd"]
+[ext_resource type="Texture2D" uid="uid://bggsfc3fpnf8l" path="res://sprites/Fondo/Planetas/Planetas56.png" id="57_bw8wf"]
+[ext_resource type="Texture2D" uid="uid://cmrmuhvti365c" path="res://sprites/Fondo/Planetas/Planetas57.png" id="58_1t27u"]
+[ext_resource type="Texture2D" uid="uid://dd7t2bqpbubvf" path="res://sprites/Fondo/Planetas/Planetas58.png" id="59_3f5fw"]
+[ext_resource type="Texture2D" uid="uid://c3lmum0mhwhsd" path="res://sprites/Fondo/Planetas/Planetas59.png" id="60_nypt3"]
+[ext_resource type="Texture2D" uid="uid://drvaxq35pukoy" path="res://sprites/Fondo/Planetas/Planetas60.png" id="61_mtmxn"]
+[ext_resource type="Texture2D" uid="uid://bajncfsoiw2nc" path="res://sprites/Fondo/Planetas/Planetas61.png" id="62_4g8gu"]
+[ext_resource type="Texture2D" uid="uid://crdat833uy100" path="res://sprites/Fondo/Planetas/Planetas62.png" id="63_qkwjt"]
+[ext_resource type="Texture2D" uid="uid://dn4qoxm44k0is" path="res://sprites/Fondo/Planetas/Planetas63.png" id="64_ps4tq"]
+[ext_resource type="Texture2D" uid="uid://d1vemmsit838h" path="res://sprites/Fondo/Planetas/Planetas64.png" id="65_8sitw"]
+[ext_resource type="Texture2D" uid="uid://bdtj6g616ocep" path="res://sprites/Fondo/Planetas/Planetas65.png" id="66_he4hm"]
+[ext_resource type="Texture2D" uid="uid://bduxjuo4njj30" path="res://sprites/Fondo/Planetas/Planetas66.png" id="67_s66h8"]
+[ext_resource type="Texture2D" uid="uid://cp7ao8m46hyae" path="res://sprites/Fondo/Planetas/Planetas67.png" id="68_ap6b1"]
+[ext_resource type="Texture2D" uid="uid://be0npdl4dpuk7" path="res://sprites/Fondo/Planetas/Planetas68.png" id="69_3q3fg"]
+[ext_resource type="Texture2D" uid="uid://dqpiulthgtwfa" path="res://sprites/Fondo/Planetas/Planetas69.png" id="70_1rxox"]
+[ext_resource type="Texture2D" uid="uid://bgua6j5wo1c6" path="res://sprites/Fondo/Planetas/Planetas70.png" id="71_bfvnw"]
+[ext_resource type="Texture2D" uid="uid://b65u0w8ytnf5d" path="res://sprites/Fondo/Planetas/Planetas71.png" id="72_lxp2h"]
+[ext_resource type="Texture2D" uid="uid://dw0e07mslj12s" path="res://sprites/Fondo/Planetas/Planetas72.png" id="73_2w42n"]
+[ext_resource type="Texture2D" uid="uid://cy77buc23j3rn" path="res://sprites/Fondo/Planetas/Planetas73.png" id="74_ctkbu"]
+[ext_resource type="Texture2D" uid="uid://duodtobjdti0r" path="res://sprites/Fondo/Planetas/Planetas74.png" id="75_d5guv"]
+[ext_resource type="Texture2D" uid="uid://dubu5kwwyaxc8" path="res://sprites/Fondo/Planetas/Planetas75.png" id="76_ny5py"]
+[ext_resource type="Texture2D" uid="uid://btb1rh80t4q0v" path="res://sprites/Fondo/Planetas/Planetas76.png" id="77_uum4b"]
+[ext_resource type="Texture2D" uid="uid://84waqalolp7w" path="res://sprites/Fondo/Planetas/Planetas77.png" id="78_ja3ik"]
+[ext_resource type="Texture2D" uid="uid://bwl7jnxabx2fe" path="res://sprites/Fondo/Estrellas/Estrellas1.png" id="79_l2nfi"]
+[ext_resource type="Texture2D" uid="uid://cos0nbpr5gwyj" path="res://sprites/Fondo/Estrellas/Estrellas2.png" id="80_c320l"]
+[ext_resource type="Texture2D" uid="uid://iwwhffewnjsf" path="res://sprites/Fondo/Estrellas/Estrellas3.png" id="81_17afu"]
+[ext_resource type="Texture2D" uid="uid://brob8gq6awyfu" path="res://sprites/Fondo/Estrellas/Estrellas4.png" id="82_5713x"]
+[ext_resource type="Texture2D" uid="uid://dhp2mraq7prgx" path="res://sprites/Fondo/Estrellas/Estrellas5.png" id="83_qxsgw"]
+[ext_resource type="Texture2D" uid="uid://dac75fpggfw5" path="res://sprites/Fondo/Estrellas/Estrellas6.png" id="84_pnj4t"]
+[ext_resource type="Texture2D" uid="uid://bet6serqlpwlo" path="res://sprites/Fondo/Estrellas/Estrellas7.png" id="85_0f87b"]
+[ext_resource type="Texture2D" uid="uid://bfue5bwrc2ib6" path="res://sprites/Fondo/Sombra_2.png" id="86_46u8u"]
+[ext_resource type="Texture2D" uid="uid://cufugtdwg8kxl" path="res://sprites/Fondo/Sombra_1.png" id="87_x4ia6"]
+[ext_resource type="Texture2D" uid="uid://bf2quoykt77wc" path="res://sprites/Fondo/Fondo.png" id="88_kks8e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1v4vm"]
+size = Vector2(256, 94)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lyf1p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hp8mn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_k5unj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tdaqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ehore")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_uq3ay")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_g0mdp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_csl8k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_wpr1t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3c3gd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_587u2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_aywlq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ll1a1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_e2c13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_k36tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_1asss")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_cm815")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_6xll4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_0ygkq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_eps7k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_7al2n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_47m76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_5k2n2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_ftdt5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_xmvc5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_8xt3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_vi03c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ps4nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_klpvd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_i58p4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_4kbn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_ryksa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_kwgjj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_4ixda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_kk3ci")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_qlq04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_ojm07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_46re5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_n5jyb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_x3cxo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_wf76j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_v6ux5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_mlshd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_c8i4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_1b0gg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_2rfet")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_f4mya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_wk6ue")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_t1t36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_bcuii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_jj7cv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_vv66s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_iexoc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_4nvnu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_r7204")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_maidd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_bw8wf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_1t27u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_3f5fw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_nypt3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_mtmxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_4g8gu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_qkwjt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_ps4tq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_8sitw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_he4hm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_s66h8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_ap6b1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_3q3fg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_1rxox")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_bfvnw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_lxp2h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_2w42n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_ctkbu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_d5guv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_ny5py")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_uum4b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_ja3ik")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aurrd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("79_l2nfi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_c320l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_17afu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_5713x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_qxsgw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_pnj4t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_0f87b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Escenario" type="Node2D" unique_id=2090195586]
+texture_filter = 1
+scale = Vector2(5, 5)
+
+[node name="Plataforma" type="StaticBody2D" parent="." unique_id=1048519347]
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 64
+collision_mask = 0
+
+[node name="Sprite2D2" type="Sprite2D" parent="Plataforma" unique_id=527020186]
+texture = ExtResource("1_lowy6")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Plataforma" unique_id=795659332]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_1v4vm")
+
+[node name="Fondo" type="Node2D" parent="." unique_id=953128853]
+scale = Vector2(0.2, 0.2)
+
+[node name="Fondo_1" type="Parallax2D" parent="Fondo" unique_id=658030205]
+z_index = -1
+texture_filter = 1
+texture_repeat = 2
+scroll_scale = Vector2(0.5, 0.5)
+scroll_offset = Vector2(0, -173)
+
+[node name="Planetas" type="AnimatedSprite2D" parent="Fondo/Fondo_1" unique_id=1465598610]
+position = Vector2(-46, -72)
+sprite_frames = SubResource("SpriteFrames_lyf1p")
+
+[node name="Fondo_2" type="Parallax2D" parent="Fondo" unique_id=1374704528]
+z_index = -2
+texture_filter = 1
+texture_repeat = 2
+scale = Vector2(1.5, 1.5)
+scroll_scale = Vector2(0.3, 0.3)
+
+[node name="Estrellas" type="AnimatedSprite2D" parent="Fondo/Fondo_2" unique_id=2064903929]
+sprite_frames = SubResource("SpriteFrames_aurrd")
+
+[node name="Fondo_3" type="Parallax2D" parent="Fondo" unique_id=1095481915]
+z_index = -3
+texture_filter = 1
+texture_repeat = 2
+
+[node name="Sombra_1" type="Sprite2D" parent="Fondo/Fondo_3" unique_id=675406415]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("86_46u8u")
+
+[node name="Fondo_4" type="Parallax2D" parent="Fondo" unique_id=1981157942]
+z_index = -4
+texture_filter = 1
+texture_repeat = 2
+scale = Vector2(2.5, 2.5)
+scroll_scale = Vector2(0.2, 0.2)
+
+[node name="Sombra_2" type="Sprite2D" parent="Fondo/Fondo_4" unique_id=1186655173]
+texture = ExtResource("87_x4ia6")
+
+[node name="Fondo_5" type="Parallax2D" parent="Fondo" unique_id=464226921]
+z_index = -5
+texture_filter = 1
+texture_repeat = 2
+scale = Vector2(2.5, 2.5)
+scroll_scale = Vector2(0.1, 0.1)
+
+[node name="Estrellitas" type="Sprite2D" parent="Fondo/Fondo_5" unique_id=1113735054]
+texture = ExtResource("88_kks8e")
