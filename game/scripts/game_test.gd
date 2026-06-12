@@ -1,4 +1,3 @@
-# En tu script del Gestor de la Partida / Escena Principal
 extends Node2D
 
 @onready var player_1: Character = $Character

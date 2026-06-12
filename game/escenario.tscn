@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://da7wxc2ca5c3p"]
 
+[ext_resource type="Script" uid="uid://njvjarnw3y5j" path="res://scripts/escenario.gd" id="1_hp8mn"]
 [ext_resource type="Texture2D" uid="uid://df7efpwfbpjhj" path="res://sprites/BigPlatform.png" id="1_lowy6"]
 [ext_resource type="Texture2D" uid="uid://b8g20xghnbjla" path="res://sprites/Fondo/Planetas/Planetas1.png" id="2_hp8mn"]
 [ext_resource type="Texture2D" uid="uid://b3rms03o6gpdk" path="res://sprites/Fondo/Planetas/Planetas2.png" id="3_k5unj"]
@@ -328,7 +329,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_aurrd"]
@@ -360,9 +361,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hp8mn"]
+distance = -99.799995
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k5unj"]
+normal = Vector2(0.0017152632, -0.9999985)
+distance = -0.57838684
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tdaqw"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ehore"]
+
 [node name="Escenario" type="Node2D" unique_id=2090195586]
 texture_filter = 1
 scale = Vector2(5, 5)
+script = ExtResource("1_hp8mn")
 
 [node name="Plataforma" type="StaticBody2D" parent="." unique_id=1048519347]
 scale = Vector2(0.99999994, 0.99999994)
@@ -373,6 +386,7 @@ collision_mask = 0
 texture = ExtResource("1_lowy6")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Plataforma" unique_id=795659332]
+visible = false
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_1v4vm")
 
@@ -389,6 +403,7 @@ scroll_offset = Vector2(0, -173)
 [node name="Planetas" type="AnimatedSprite2D" parent="Fondo/Fondo_1" unique_id=1465598610]
 position = Vector2(-46, -72)
 sprite_frames = SubResource("SpriteFrames_lyf1p")
+frame_progress = 0.6158314
 
 [node name="Fondo_2" type="Parallax2D" parent="Fondo" unique_id=1374704528]
 z_index = -2
@@ -428,3 +443,30 @@ scroll_scale = Vector2(0.1, 0.1)
 
 [node name="Estrellitas" type="Sprite2D" parent="Fondo/Fondo_5" unique_id=1113735054]
 texture = ExtResource("88_kks8e")
+
+[node name="Deadzone" type="Area2D" parent="." unique_id=279187047]
+collision_layer = 16
+
+[node name="CollisionShapeBottom" type="CollisionShape2D" parent="Deadzone" unique_id=9564517]
+position = Vector2(0, 70)
+shape = SubResource("WorldBoundaryShape2D_hp8mn")
+
+[node name="CollisionShapeTop" type="CollisionShape2D" parent="Deadzone" unique_id=1539971954]
+position = Vector2(0, -280)
+scale = Vector2(-1, -1)
+shape = SubResource("WorldBoundaryShape2D_k5unj")
+
+[node name="CollisionShapeLeft" type="CollisionShape2D" parent="Deadzone" unique_id=1064552102]
+position = Vector2(-300, 0)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_tdaqw")
+
+[node name="CollisionShapeRight" type="CollisionShape2D" parent="Deadzone" unique_id=1352517722]
+position = Vector2(300, 0)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_ehore")
+
+[node name="RespawnPosition" type="Node2D" parent="." unique_id=501159223]
+position = Vector2(0, -150)
+
+[connection signal="body_entered" from="Deadzone" to="." method="_on_deadzone_body_entered"]

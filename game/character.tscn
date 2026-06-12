@@ -6497,7 +6497,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(-1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -7671,7 +7671,6 @@ script = ExtResource("1_pjt0s")
 position = Vector2(0, 7)
 sprite_frames = ExtResource("2_7tnxx")
 animation = &"basic_idle1"
-frame = 1
 
 [node name="Hitboxes" type="Node2D" parent="Visuals" unique_id=1634018086]
 visible = false

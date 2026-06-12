@@ -45,6 +45,7 @@ var saltos_realizados: int = 0
 var is_hitstun: bool = false
 var porcentaje_daño: float = 0.0 
 var push_velocity: float = 0.0
+var dead = false
 
 # SEÑALES
 signal damage_changed(new_percentage: float, character: Character)
@@ -69,6 +70,8 @@ func _process(_delta: float) -> void:
 	self.facing = "DER >" if visuals.scale.x < 0 else "< IZQ"
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
 	# Sincronizar el suelo con el hilo de físicas antes de calcular nada
 	if not self.grounded:
 		self.grounded = ground_check.is_colliding()
@@ -153,7 +156,7 @@ func _ejecutar_accion(anim_name: String, es_suelo: bool) -> void:
 		root_playback.travel("AtaquesSuelo")
 		ataque_suelo_playback.travel(anim_name)
 		if anim_name == "block":
-			pass
+			pass #TODO sonido block
 		elif anim_name.ends_with("_strong"):
 			SFX.punch_woosh_2.play()
 		else:
@@ -202,6 +205,18 @@ func take_damage(damage: float, knockback_vector: Vector2, knockback_force: floa
 		
 	stun_timer.timeout.connect(_on_stun_timeout, CONNECT_ONE_SHOT)
 	stun_timer.start()
+
+func deadzone_kill(respawn_position: Node2D) -> void:
+	print("player dead")
+	dead = true
+	
+	await get_tree().create_timer(1).timeout
+	reset_player(respawn_position)
+
+func reset_player(respawn_position: Node2D) -> void:
+	dead = false
+	porcentaje_daño = 0
+	position = respawn_position.global_position
 
 func aplicar_block_stun(dir: Vector2, force: float) -> void:
 	# Interrumpuimos acciones y aplicamos estado de hitstun (aunque no sea un "hit")
