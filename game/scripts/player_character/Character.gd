@@ -2,13 +2,13 @@ extends CharacterBody2D
 class_name Character
 
 # NODOS
-@onready var ground_check: RayCast2D = $RayCast2D
+@onready var ground_check: RayCast2D = $Areas/RayCastGround
 @onready var timer_salto: Timer = $Timers/JumpHeightTimer
 @onready var combo_timer: Timer = $Timers/ComboTimer 
 @onready var stun_timer: Timer = $Timers/StunTimer
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var sprite: AnimatedSprite2D = $Visuals/Sprite
-@onready var push_area: Area2D = $Visuals/PushArea
+@onready var push_area: Area2D = $Areas/PushArea
 @onready var visuals: Node2D = $Visuals
 @onready var SFX: Node2D = $SFX
 
@@ -22,7 +22,7 @@ class_name Character
 
 # CONSTANTES
 const SPEED: int = Globals.PLAYER_SPEED
-const JUMP_FORCE: int = Globals.PLAYER_JUMP_FORCE
+const JUMP_FORCE: Vector2 = Globals.PLAYER_JUMP_FORCE
 const GRAVITY: int = Globals.GRAVITY
 const PUSH_FORCE: float = Globals.PUSH_FORCE
 

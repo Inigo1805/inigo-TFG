@@ -2,7 +2,7 @@
 extends Node
 class_name JumpFunctions
 
-static func procesar_salto(player: CharacterBody2D, is_pressing: bool, timer: Timer, jump_force: float) -> bool:
+static func procesar_salto(player: Character, is_pressing: bool, timer: Timer, jump_force: Vector2) -> bool:
 	# Creamos una variable para registrar si se realiza un salto sin romper el flujo
 	var salto_ejecutado = false
 
@@ -15,21 +15,37 @@ static func procesar_salto(player: CharacterBody2D, is_pressing: bool, timer: Ti
 	var just_pressed = is_pressing and not player.saltando_pressed
 	
 	if just_pressed:
+		if player.is_on_wall_only() and not player.is_attacking:
+			# Obtenemos la dirección perpendicular a la pared (1.0 o -1.0)
+			var direccion_muro: Vector2 = player.get_wall_normal()
+			
+			# Creamos un vector diagonal: 
+			# En X: Empuja con fuerza en dirección opuesta al muro
+			# En Y: Sube con la fuerza vertical normal del salto
+			var fuerza_wall_jump = Vector2(direccion_muro.x * jump_force.y, jump_force.y)
+			
+			iniciar_salto(player, timer, fuerza_wall_jump)
+			
+			# Opcional: El wall jump suele resetear el doble salto para poder encadenarlos
+			player.saltos_realizados = 1 
+			salto_ejecutado = true
+			#print("Wall Jump hacia: ", "DERECHA" if direccion_muro.x > 0 else "IZQUIERDA")
+		
 		# Caso A: Salto desde el suelo
-		if player.grounded and not player.is_attacking:
+		elif player.grounded and not player.is_attacking:
 			iniciar_salto(player, timer, jump_force)
 			player.saltos_realizados = 1
-			salto_ejecutado = true # Registramos el éxito, pero NO frenamos la función
+			salto_ejecutado = true
 			
 		# Caso B: Salto en el aire (Doble Salto)
 		elif player.saltos_realizados < 2 and not player.is_attacking:
+			# Multiplicamos el vector completo por 0.85 para suavizar el doble salto vertical
 			iniciar_salto(player, timer, jump_force * 0.85) 
 			player.saltos_realizados = 2
 			player.is_fast_falling = false
-			salto_ejecutado = true # Registramos el éxito, pero NO frenamos la función
+			salto_ejecutado = true
 
 	# --- INTERRUPCIÓN (Salto Variable) ---
-	# Esta parte SIEMPRE se ejecutará ahora, garantizando el comportamiento original
 	if not is_pressing and player.saltando_pressed:
 		interrumpir_salto(player, timer)
 
@@ -37,13 +53,20 @@ static func procesar_salto(player: CharacterBody2D, is_pressing: bool, timer: Ti
 	if not player.grounded and player.velocity.y > 0 and player.is_fast_falling == false:
 		pass
 		
-	# Devolvemos el resultado al final del todo, tras haber procesado todo el script
 	return salto_ejecutado
 
-static func iniciar_salto(player: CharacterBody2D, timer: Timer, jump_force: float) -> bool:
+static func iniciar_salto(player: CharacterBody2D, timer: Timer, jump_force: Vector2) -> bool:
 	AnimationFunctions.change_movimiento_state(player.movimiento_playback, player.idle_playback, "jump")
 	timer.start()
-	player.velocity.y = -jump_force
+	player.velocity.y = -jump_force.y
+	
+	if jump_force.x != 0:
+		player.velocity.x = jump_force.x
+		# Bloqueamos el flip visual momentáneamente para que el personaje mire hacia donde salta
+		if player.can_flip:
+			player.visuals.scale.x = -1 if jump_force.x > 0 else 1
+			player.actualizar_direccion_hitboxes()
+
 	player.saltando_pressed = true
 	return true
 
@@ -59,13 +82,9 @@ static func corta_salto(player: CharacterBody2D) -> void:
 
 static func activar_fast_fall(player: CharacterBody2D) -> void:
 	player.is_fast_falling = true
-	#player.velocity.y += 300.0 
-	#print("Fast Fall activado")
 	
 static func cancelar_fast_fall(player: CharacterBody2D) -> void:
 	player.is_fast_falling = false
-	#player.velocity.y += -300.0
-	#print("Fast Fall desactivado")
 	
 static func aplicar_gravedad(player: CharacterBody2D, delta: float, gravity: float) -> void:
 	if not player.grounded:

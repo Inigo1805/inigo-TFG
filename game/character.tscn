@@ -7671,6 +7671,7 @@ script = ExtResource("1_pjt0s")
 position = Vector2(0, 7)
 sprite_frames = ExtResource("2_7tnxx")
 animation = &"basic_idle1"
+frame = 1
 
 [node name="Hitboxes" type="Node2D" parent="Visuals" unique_id=1634018086]
 visible = false
@@ -7891,35 +7892,34 @@ shape = SubResource("CapsuleShape2D_y0ipg")
 disabled = true
 debug_color = Color(1, 0.011764706, 0.011764706, 0.41960785)
 
-[node name="Hurtbox" type="Area2D" parent="Visuals" unique_id=1542567085]
-visible = false
+[node name="Areas" type="Node2D" parent="." unique_id=108581356]
+
+[node name="RayCastGround" type="RayCast2D" parent="Areas" unique_id=1945575423]
+position = Vector2(0, 1)
+target_position = Vector2(0, 114)
+collision_mask = 76
+
+[node name="Hurtbox" type="Area2D" parent="Areas" unique_id=1542567085]
 collision_mask = 2
 script = ExtResource("3_wa5vi")
 
-[node name="HurtboxShape" type="CollisionShape2D" parent="Visuals/Hurtbox" unique_id=994259987]
+[node name="HurtboxShape" type="CollisionShape2D" parent="Areas/Hurtbox" unique_id=994259987]
 position = Vector2(0, 24)
 shape = SubResource("CapsuleShape2D_pjt0s")
 
-[node name="PushArea" type="Area2D" parent="Visuals" unique_id=1757874142]
-visible = false
+[node name="PushArea" type="Area2D" parent="Areas" unique_id=1757874142]
 collision_layer = 128
 collision_mask = 128
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/PushArea" unique_id=807846890]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/PushArea" unique_id=807846890]
 position = Vector2(0, 26)
 shape = SubResource("CapsuleShape2D_kjduu")
 debug_color = Color(0.78039217, 0.42352942, 0.30980393, 0.3372549)
 
 [node name="BodySolid" type="CollisionShape2D" parent="." unique_id=1646955547]
-visible = false
 position = Vector2(0, 25.75)
 shape = SubResource("RectangleShape2D_0qfo5")
 debug_color = Color(0, 0.6, 0.69803923, 0.21568628)
-
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1945575423]
-position = Vector2(0, 1)
-target_position = Vector2(0, 114)
-collision_mask = 76
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1056198948]
 libraries/ = SubResource("AnimationLibrary_0qfo5")

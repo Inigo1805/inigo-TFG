@@ -2,7 +2,7 @@ extends Node
 
 # Constantes de personaje
 const PLAYER_SPEED:int = 300
-const PLAYER_JUMP_FORCE:int = 800
+const PLAYER_JUMP_FORCE:Vector2 = Vector2(0.0, 800.0)
 
 # Fisicas de gravedad y caída
 const GRAVITY: int = 1100
