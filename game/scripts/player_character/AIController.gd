@@ -1,27 +1,22 @@
 extends Node
 
-# Referencias
 @onready var controlled_character: Character = get_parent().get_parent()
 var target: CharacterBody2D = null 
 
-# TODO Configuraciones de comportamiento, hay que mejorar
-@export var agresividad: float = 0.8 # Probabilidad de realizar acciones
+@export var agresividad: float = 0.8
 @export var distancia_ataque: float = 80.0
 @export var distancia_correr: float = 300.0
 
 func _ready() -> void:
-	# Si este personaje no está marcado como CPU, desactivamos este cerebro
 	if not self.get_parent().get_parent().is_in_group("cpu"):
 		set_physics_process(false)
 		return
-	
-	# Buscamos al oponente
 	target = _buscar_oponente_valido()
 
 func _buscar_oponente_valido() -> CharacterBody2D:
 	var todos_los_personajes = get_tree().get_nodes_in_group("character")
 	for p in todos_los_personajes:
-		if p != controlled_character: # ¡Aquí está la clave! Ignora si es él mismo
+		if p != controlled_character:
 			return p
 	return null
 
@@ -32,11 +27,9 @@ func _quedarse_quieto() -> void:
 	controlled_character.is_running = false
 
 func _physics_process(_delta: float) -> void:
-	# Si no hay target, intentamos buscar uno válido
 	if not is_instance_valid(target):
 		target = _buscar_oponente_valido()
 		
-	# Si después de buscar seguimos sin target, nos quedamos quietos
 	if not target:
 		_quedarse_quieto()
 		return
@@ -46,42 +39,76 @@ func _physics_process(_delta: float) -> void:
 	var abs_dist_x = abs(dist_x)
 	var diff_y = dist_vector.y
 	
-	# --- LÓGICA DE MOVIMIENTO HORIZONTAL ---
-	if abs_dist_x > distancia_ataque:
-		controlled_character.input_x = sign(dist_x)
+	# REACCIÓN BASADA EN GEOGRAFÍA (Prioridad sobre persecución estándar)
+	match controlled_character.zona_actual:
 		
-		# Decidir si corre o camina escribiendo en la variable de la entidad
-		if abs_dist_x > distancia_correr:
+		controlled_character.ZonaEscenario.AIR_ABOVE_VOID_DANGER:
+			# ALERTA MÁXIMA Fuera de rango de salvación simple.
+			# Forzamos regreso al centro (0.0) y gastamos dobles saltos desesperadamente.
+			var direccion_a_salvo = -sign(controlled_character.global_position.x)
+			controlled_character.input_x = direccion_a_salvo if direccion_a_salvo != 0 else 1.0
 			controlled_character.is_running = true
-		elif abs_dist_x < 150:
-			controlled_character.is_running = false
-	else:
-		controlled_character.input_x = 0
-		controlled_character.is_running = false
-		_decidir_ataque(dist_x, diff_y)
-
-	# --- LÓGICA DE SALTO (Contextual) ---
-	if controlled_character.grounded:
-		if randf() < agresividad:
-			if diff_y < -160:
-				_presionar_salto_virtual(0.25) # Salto Máximo
-			elif diff_y < -60 and abs_dist_x < 200:
-				_presionar_salto_virtual(0.08) # Short Hop
-			elif abs_dist_x < 150 and controlled_character.is_running:
-				_presionar_salto_virtual(0.12) # Salto de aproximación
-	
-	# --- LÓGICA DE AIRE (Doble Salto y Fast Fall) ---
-	if not controlled_character.grounded:
-		# Doble salto: Si estamos cayendo y el rival sigue arriba
-		if controlled_character.velocity.y > 0 and diff_y < -50:
-			if controlled_character.saltos_realizados < 2:
+			
+			if controlled_character.velocity.y > 0 and controlled_character.saltos_realizados < 2:
 				_presionar_salto_virtual(0.2)
-		
-		# Fast Fall: Usamos la nueva variable input_fast_fall
-		if controlled_character.velocity.y > 0 and diff_y > 150:
-			controlled_character.input_fast_fall = true
-		else:
+			return
+
+		controlled_character.ZonaEscenario.AIR_ABOVE_VOID_SAFE:
+			# VACÍO SEGURO: El bot sabe que el borde está ahí mismo.
+			# Dirige su movimiento hacia el escenario para aterrizar, 
+			# pero NO malgasta su doble salto todavía. Puede flotar de vuelta de forma eficiente.
+			var direccion_a_salvo = -sign(controlled_character.global_position.x)
+			controlled_character.input_x = direccion_a_salvo if direccion_a_salvo != 0 else 1.0
+			controlled_character.is_running = false # No necesita correr descontrolado
+			
+			# TODO: Si el rival está también cerca del borde, podría intentar un ataque aéreo
+			if abs_dist_x < distancia_ataque:
+				_decidir_ataque(dist_x, diff_y)
+				
+		controlled_character.ZonaEscenario.AIR_NEAR_WALL:
+			_presionar_salto_virtual(0.15)
+			return
+			
+		controlled_character.ZonaEscenario.AIR_ABOVE_PLATFORM:
+			# Lógica de persecución aérea estándar
+			controlled_character.input_x = sign(dist_x)
+			controlled_character.is_running = (abs_dist_x > distancia_correr)
+			
+			if controlled_character.velocity.y > 0 and diff_y < -50:
+				if controlled_character.saltos_realizados < 2:
+					_presionar_salto_virtual(0.2)
+					
+			if controlled_character.velocity.y > 0 and diff_y > 150:
+				controlled_character.input_fast_fall = true
+			else:
+				controlled_character.input_fast_fall = false
+				
+			# Permite tirar ataques aéreos si está cerca
+			if abs_dist_x < distancia_ataque:
+				_decidir_ataque(dist_x, diff_y)
+
+		controlled_character.ZonaEscenario.ON_PLATFORM:
 			controlled_character.input_fast_fall = false
+			
+			if abs_dist_x > distancia_ataque:
+				controlled_character.input_x = sign(dist_x)
+				if abs_dist_x > distancia_correr:
+					controlled_character.is_running = true
+				elif abs_dist_x < 150:
+					controlled_character.is_running = false
+			else:
+				controlled_character.input_x = 0
+				controlled_character.is_running = false
+				_decidir_ataque(dist_x, diff_y)
+
+			# Saltos condicionales en el suelo
+			if randf() < agresividad:
+				if diff_y < -160:
+					_presionar_salto_virtual(0.25)
+				elif diff_y < -60 and abs_dist_x < 200:
+					_presionar_salto_virtual(0.08)
+				elif abs_dist_x < 150 and controlled_character.is_running:
+					_presionar_salto_virtual(0.12)
 
 # Simula la pulsación del botón de salto durante un tiempo determinado
 func _presionar_salto_virtual(duracion: float) -> void:

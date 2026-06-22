@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://dklqo43run32r"]
+
+[ext_resource type="Script" uid="uid://blw6jrkns53jf" path="res://scripts/pause_menu.gd" id="1_ggst7"]
+[ext_resource type="Theme" uid="uid://cs55wonthksqc" path="res://sprites/gui/button_theme.tres" id="2_fhqd4"]
+[ext_resource type="Texture2D" uid="uid://hl2smu6xrx8b" path="res://sprites/gui/GUI.png" id="3_6pq1k"]
+[ext_resource type="AudioStream" uid="uid://crvu64fun0lap" path="res://sprites/gui/092_Pause_04.wav" id="3_lw33h"]
+[ext_resource type="AudioStream" uid="uid://rjnqgxv31rjm" path="res://sprites/gui/098_Unpause_04.wav" id="4_63an3"]
+
+[sub_resource type="Animation" id="Animation_qbdvg"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../..:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../..:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(2131, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../..:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(14, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_n1rpm"]
+resource_name = "blur"
+length = 0.3
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0, 0.83, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../..:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0, 1, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../..:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(2131, -0.15, 0, 0.15, 0, 0, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.0333333)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../..:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(14, -0.15, 0, 0.15, 0, 14, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.0333333)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5oli3"]
+_data = {
+&"RESET": SubResource("Animation_qbdvg"),
+&"blur": SubResource("Animation_n1rpm")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anp0h"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tqgkb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhv81"]
+atlas = ExtResource("3_6pq1k")
+region = Rect2(2, 34, 44, 44)
+
+[node name="PauseMenu" type="Control" unique_id=2026811987]
+process_mode = 3
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2131.0
+offset_top = 14.0
+offset_right = 2131.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ggst7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=548205107]
+root_node = NodePath("../PanelContainer/ColorRect/VBoxContainer")
+libraries/ = SubResource("AnimationLibrary_5oli3")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=622720270]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -143.5
+offset_top = -134.0
+offset_right = 143.5
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_anp0h")
+
+[node name="ColorRect" type="TextureRect" parent="PanelContainer" unique_id=1699843902]
+material = SubResource("CanvasItemMaterial_tqgkb")
+layout_mode = 2
+theme = ExtResource("2_fhqd4")
+texture = SubResource("AtlasTexture_xhv81")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/ColorRect" unique_id=1353874533]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -148.0
+offset_right = 100.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_fhqd4")
+alignment = 1
+
+[node name="Resume" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1097500112]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme = ExtResource("2_fhqd4")
+theme_override_font_sizes/font_size = 23
+text = "Resume"
+autowrap_mode = 2
+
+[node name="Save" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=2107783726]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme = ExtResource("2_fhqd4")
+theme_override_font_sizes/font_size = 23
+text = "Save"
+autowrap_mode = 2
+
+[node name="Quit" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1508341602]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme = ExtResource("2_fhqd4")
+theme_override_font_sizes/font_size = 23
+text = "Quit"
+
+[node name="SFX" type="Node" parent="." unique_id=1981566214]
+
+[node name="pause_sfx" type="AudioStreamPlayer2D" parent="SFX" unique_id=1192555854]
+stream = ExtResource("3_lw33h")
+
+[node name="resume_sfx" type="AudioStreamPlayer2D" parent="SFX" unique_id=581378069]
+stream = ExtResource("4_63an3")
+
+[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

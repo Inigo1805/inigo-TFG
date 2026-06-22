@@ -7899,6 +7899,18 @@ position = Vector2(0, 1)
 target_position = Vector2(0, 114)
 collision_mask = 76
 
+[node name="RayCastVoid" type="RayCast2D" parent="Areas" unique_id=271112755]
+target_position = Vector2(0, 800)
+collision_mask = 76
+
+[node name="RayCastVoidLeft" type="RayCast2D" parent="Areas" unique_id=845283461]
+target_position = Vector2(-600, 800)
+collision_mask = 76
+
+[node name="RayCastVoidRight" type="RayCast2D" parent="Areas" unique_id=408361407]
+target_position = Vector2(600, 800)
+collision_mask = 100
+
 [node name="Hurtbox" type="Area2D" parent="Areas" unique_id=1542567085]
 collision_mask = 2
 script = ExtResource("3_wa5vi")

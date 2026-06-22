@@ -29,6 +29,17 @@ const RUN_GRACE_PERIOD: float = 0.15          # Tiempo para cambiar de direcció
 # Interacción entre personajes (empuje)
 const PUSH_FORCE: int = 30
 
+enum RangosDaño { BAJO, MEDIO, ALTO }
+
+static func obtener_rango_daño(porcentaje: float) -> RangosDaño:
+	if porcentaje <= 40.0:
+		return RangosDaño.BAJO
+	elif porcentaje <= 90.0:
+		return RangosDaño.MEDIO
+	else:
+		return RangosDaño.ALTO
+
+
 func get_deepest_animation(animation_tree: AnimationTree, playback: AnimationNodeStateMachinePlayback, path: String = "") -> String:
 	if playback == null:
 		return path

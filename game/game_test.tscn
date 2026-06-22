@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bog6hkuij7255" path="res://hud.tscn" id="3_4d3oi"]
 [ext_resource type="Script" uid="uid://d0qg1mjahiu84" path="res://CameraBrawler.gd" id="5_5jd2a"]
 [ext_resource type="PackedScene" uid="uid://da7wxc2ca5c3p" path="res://escenario.tscn" id="5_l402w"]
+[ext_resource type="PackedScene" uid="uid://dklqo43run32r" path="res://pause_menu.tscn" id="6_m7b8h"]
 
 [node name="game_test" type="Node2D" unique_id=1036480288]
 script = ExtResource("1_r27sn")
@@ -28,3 +29,7 @@ zoom_minimo = 0.1
 zoom_maximo = 0.5
 
 [node name="Escenario" parent="." unique_id=2090195586 instance=ExtResource("5_l402w")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=73138283]
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=2026811987 instance=ExtResource("6_m7b8h")]
