@@ -66,6 +66,7 @@ var hizo_wall_jump: bool = false
 
 # SEÑALES
 signal damage_changed(new_percentage: float, character: Character)
+signal muerto
 
 func set_sprite() -> void: #TODO esto servirá para elegir personaje, ahora mismo solo está el blanco
 	var frames = load("res://sprites/animaciones/dark/dark.tres")
@@ -265,8 +266,19 @@ func deadzone_kill(respawn_position: Node2D) -> void:
 	print("player dead")
 	dead = true
 	
-	await get_tree().create_timer(1).timeout
-	reset_player(respawn_position)
+	# Notificamos la muerte inmediatamente a la escena/HUD
+	muerto.emit()
+	
+	# Si la escena ya no existe o el personaje salió del árbol (por cambiar de escena), detenemos la ejecución
+	if not is_inside_tree():
+		return
+
+	# Usamos un temporizador ligado al proceso del nodo
+	await get_tree().create_timer(1.0, false).timeout
+	
+	# Comprobamos nuevamente antes de intentar reaparecer por si la escena cambió durante la espera
+	if is_inside_tree():
+		reset_player(respawn_position)
 
 func reset_player(respawn_position: Node2D) -> void:
 	dead = false
