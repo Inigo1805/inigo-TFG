@@ -11,10 +11,13 @@
 script = ExtResource("1_r27sn")
 
 [node name="Character" parent="." unique_id=908007278 instance=ExtResource("2_4d3oi")]
-position = Vector2(321, -366)
+position = Vector2(317, -366)
 
-[node name="Character2" parent="." unique_id=1347353149 groups=["cpu"] instance=ExtResource("2_4d3oi")]
-position = Vector2(-217, -369)
+[node name="Character2" parent="." unique_id=1347353149 instance=ExtResource("2_4d3oi")]
+position = Vector2(-307, -365)
+
+[node name="Character2_CPU" parent="." unique_id=947072040 groups=["cpu"] instance=ExtResource("2_4d3oi")]
+position = Vector2(-305, -366)
 
 [node name="HUD" parent="." unique_id=1001647321 instance=ExtResource("3_4d3oi")]
 

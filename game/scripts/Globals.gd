@@ -4,6 +4,11 @@ extends Node
 const PLAYER_SPEED:int = 300
 const PLAYER_JUMP_FORCE:Vector2 = Vector2(0.0, 800.0)
 
+# Colores de los jugadores
+var player_1_color: String = "dark"
+var player_2_color: String = "white"
+var is_vs_ai: bool = false
+
 # Fisicas de gravedad y caída
 const GRAVITY: int = 1100
 const GRAVITY_MULT: float = 1.0

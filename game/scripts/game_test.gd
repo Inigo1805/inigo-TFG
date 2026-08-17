@@ -1,15 +1,32 @@
 extends Node2D
 
 @onready var player_1: Character = $Character
-@onready var player_2: Character = $Character2
+@onready var player_2_humano: Character = $Character2
+@onready var player_2_ia: Character = $Character2_CPU
 @onready var hud: HUD = $HUD
+
+@export_file("*.tscn") var main_menu_path: String = "res://main_menu.tscn"
+
+# Referencia dinámica al Jugador 2 activo
+var player_2: Character = null
 
 var muertes_jugadores: Dictionary = {}
 var partida_finalizada: bool = false
 
 func _ready() -> void:
-	# Nos aseguramos de que el juego NO inicie pausado
 	get_tree().paused = false
+	
+	# Determinamos cuál nodo de P2 mantener y cuál eliminar
+	if Globals.is_vs_ai:
+		player_2 = player_2_ia
+		player_2_humano.queue_free()
+	else:
+		player_2 = player_2_humano
+		player_2_ia.queue_free()
+	
+	# Cargamos los colores seleccionados
+	player_1.set_sprite(Globals.player_1_color)
+	player_2.set_sprite(Globals.player_2_color)
 	
 	hud.inicializar_partida(player_1, player_2)
 	
@@ -30,25 +47,19 @@ func _on_jugador_muerto(jugador: Character) -> void:
 		
 		var mensaje: String = ""
 		if jugador == player_1:
-			mensaje = "¡Gana el Jugador 2!"
+			mensaje = "Player 2 wins!"
 		else:
-			mensaje = "¡Gana el Jugador 1!"
+			mensaje = "Player 1 wins!"
 		
 		finalizar_escena(mensaje)
 
 func finalizar_escena(mensaje_ganador: String) -> void:
-	# Esperamos 1 segundo con el juego normal para que transcurra el evento de la muerte
 	await get_tree().create_timer(0.5).timeout
 	
-	# Mostramos la pantalla de Game Over
 	hud.mostrar_game_over(mensaje_ganador)
-	
-	# Pausamos la partida
 	get_tree().paused = true
 	
-	# Esperamos 2.5 segundos (ignora la pausa)
 	await get_tree().create_timer(2.5, true).timeout
 	
-	# Quitamos la pausa y reiniciamos la escena
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file(main_menu_path)

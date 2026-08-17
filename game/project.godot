@@ -24,7 +24,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="TFG"
-run/main_scene="uid://cuck6uqdvqclr"
+run/main_scene="uid://q55c4sgc8k0x"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

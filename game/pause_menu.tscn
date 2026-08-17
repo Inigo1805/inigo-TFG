@@ -54,7 +54,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_n1rpm"]
-resource_name = "blur"
+resource_name = "fade_in"
 length = 0.3
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -104,7 +104,7 @@ tracks/3/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5oli3"]
 _data = {
 &"RESET": SubResource("Animation_qbdvg"),
-&"blur": SubResource("Animation_n1rpm")
+&"fade_in": SubResource("Animation_n1rpm")
 }
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anp0h"]
@@ -129,6 +129,7 @@ offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ggst7")
+main_menu_path = "uid://q55c4sgc8k0x"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=548205107]
 root_node = NodePath("../PanelContainer/ColorRect/VBoxContainer")
@@ -172,23 +173,14 @@ grow_vertical = 2
 theme = ExtResource("2_fhqd4")
 alignment = 1
 
-[node name="Resume" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1097500112]
+[node name="ResumeButton" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1097500112]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-theme = ExtResource("2_fhqd4")
 theme_override_font_sizes/font_size = 23
 text = "Resume"
 autowrap_mode = 2
 
-[node name="Save" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=2107783726]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-theme = ExtResource("2_fhqd4")
-theme_override_font_sizes/font_size = 23
-text = "Save"
-autowrap_mode = 2
-
-[node name="Quit" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1508341602]
+[node name="QuitButton" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1508341602]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("2_fhqd4")
@@ -203,6 +195,5 @@ stream = ExtResource("3_lw33h")
 [node name="resume_sfx" type="AudioStreamPlayer2D" parent="SFX" unique_id=581378069]
 stream = ExtResource("4_63an3")
 
-[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/ResumeButton" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/QuitButton" to="." method="_on_quit_pressed"]

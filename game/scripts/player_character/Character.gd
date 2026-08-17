@@ -68,12 +68,15 @@ var hizo_wall_jump: bool = false
 signal damage_changed(new_percentage: float, character: Character)
 signal muerto
 
-func set_sprite() -> void: #TODO esto servirá para elegir personaje, ahora mismo solo está el blanco
-	var frames = load("res://sprites/animaciones/dark/dark.tres")
-	sprite.set_sprite_frames(frames)
+func set_sprite(color_name: String) -> void:
+	var path = "res://sprites/animaciones/%s/%s.tres" % [color_name, color_name]
+	var frames = load(path)
+	
+	if frames and sprite:
+		sprite.sprite_frames = frames
+		sprite.play("basic_idle1")
 
 func _ready() -> void:
-	set_sprite()
 	timer_salto.wait_time = Globals.MIN_JUMP_TIME
 	timer_salto.one_shot = true
 	combo_timer.wait_time = Globals.MIN_COMBO_TIMER
