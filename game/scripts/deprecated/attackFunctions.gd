@@ -3,7 +3,7 @@ extends Node
 
 # Maneja la lógica de activar el ataque o encadenar combos
 static func ejecutar_ataque(player: CharacterBody2D, boton: String) -> void:
-	# 1. Lógica de Combo
+	# Lógica de Combo
 	if player.is_attacking and player.root_playback.get_current_node() == "AtaquesSuelo":
 		var current_anim = player.ataque_suelo_playback.get_current_node()
 		if current_anim in ["jab1", "jab2"]:
@@ -11,11 +11,11 @@ static func ejecutar_ataque(player: CharacterBody2D, boton: String) -> void:
 			player.combo_timer.start() 
 			return 
 
-	# 2. Determinar qué ataque toca
+	# Determinar qué ataque toca
 	var anim_name = determinar_ataque_especifico(player, boton)
 	if anim_name == "": return
 
-	# 3. Viajar al subárbol correspondiente
+	# Viajar al subárbol correspondiente
 	if player.grounded:
 		player.root_playback.travel("AtaquesSuelo")
 		player.ataque_suelo_playback.travel(anim_name)
@@ -28,7 +28,7 @@ static func determinar_ataque_especifico(player: CharacterBody2D, boton: String)
 	var in_x = Input.get_axis("izquierda", "derecha")
 	var in_y = Input.get_axis("arriba", "abajo")
 	
-	# --- ATAQUES AÉREOS ---
+	# ATAQUES AÉREOS
 	if not player.grounded:
 		if in_y < -0.5: return "uair"
 		if in_y > 0.5:  return "dair"
@@ -49,7 +49,7 @@ static func determinar_ataque_especifico(player: CharacterBody2D, boton: String)
 				
 		return "nair"
 
-	# --- ATAQUES EN SUELO ---
+	# ATAQUES EN SUELO
 	if boton == "attack_a": # Jab y Tilts
 		if in_y < -0.5: return "up_tilt"
 		if in_y > 0.5:  return "down_tilt"

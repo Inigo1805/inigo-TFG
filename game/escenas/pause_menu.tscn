@@ -220,5 +220,5 @@ stream = ExtResource("3_lw33h")
 stream = ExtResource("4_63an3")
 
 [connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/ResumeButton" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/ControlsButton" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/QuitButton" to="." method="_on_quit_pressed"]

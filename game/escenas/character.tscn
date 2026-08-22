@@ -7766,7 +7766,7 @@ states/up_strong/position = Vector2(245, -54)
 states/up_tilt/node = SubResource("AnimationNodeAnimation_1r1pa")
 states/up_tilt/position = Vector2(340, -9)
 transitions = ["Start", "jab1", SubResource("AnimationNodeStateMachineTransition_lyohd"), "Start", "down_strong", SubResource("AnimationNodeStateMachineTransition_2ia7u"), "Start", "up_strong", SubResource("AnimationNodeStateMachineTransition_0fer6"), "Start", "down_tilt", SubResource("AnimationNodeStateMachineTransition_aeagw"), "Start", "jab2", SubResource("AnimationNodeStateMachineTransition_lphiu"), "Start", "jab3", SubResource("AnimationNodeStateMachineTransition_xc4g8"), "Start", "up_tilt", SubResource("AnimationNodeStateMachineTransition_xc8pg"), "Start", "side_tilt", SubResource("AnimationNodeStateMachineTransition_grlnq"), "Start", "side_strong", SubResource("AnimationNodeStateMachineTransition_3fhje"), "up_strong", "End", SubResource("AnimationNodeStateMachineTransition_0a77e"), "side_strong", "End", SubResource("AnimationNodeStateMachineTransition_hkojd"), "up_tilt", "End", SubResource("AnimationNodeStateMachineTransition_ltcw0"), "side_tilt", "End", SubResource("AnimationNodeStateMachineTransition_fwo57"), "down_strong", "End", SubResource("AnimationNodeStateMachineTransition_n0b81"), "down_tilt", "End", SubResource("AnimationNodeStateMachineTransition_7suoe"), "jab1", "jab2", SubResource("AnimationNodeStateMachineTransition_suc4m"), "jab2", "jab3", SubResource("AnimationNodeStateMachineTransition_2q63v"), "jab1", "End", SubResource("AnimationNodeStateMachineTransition_1pwx4"), "jab2", "End", SubResource("AnimationNodeStateMachineTransition_sk8ur"), "jab3", "End", SubResource("AnimationNodeStateMachineTransition_7yskq"), "Start", "block", SubResource("AnimationNodeStateMachineTransition_6nogu"), "block", "End", SubResource("AnimationNodeStateMachineTransition_ghgpl")]
-graph_offset = Vector2(88, -79)
+graph_offset = Vector2(35, -63)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rr203"]
 animation = &"hitstun"
@@ -7926,7 +7926,7 @@ states/Movimiento/node = SubResource("AnimationNodeStateMachine_8i6g0")
 states/Movimiento/position = Vector2(557, 150)
 states/Start/position = Vector2(103, 150)
 transitions = ["Start", "Movimiento", SubResource("AnimationNodeStateMachineTransition_wfnr8"), "Start", "AtaquesAire", SubResource("AnimationNodeStateMachineTransition_0qfo5"), "AtaquesAire", "Movimiento", SubResource("AnimationNodeStateMachineTransition_go3uk"), "Start", "AtaquesSuelo", SubResource("AnimationNodeStateMachineTransition_2xv5r"), "AtaquesSuelo", "Movimiento", SubResource("AnimationNodeStateMachineTransition_q5fly"), "Start", "Damage", SubResource("AnimationNodeStateMachineTransition_ks6nc"), "Damage", "Movimiento", SubResource("AnimationNodeStateMachineTransition_i6hxo")]
-graph_offset = Vector2(-329, -143)
+graph_offset = Vector2(-344, 62)
 
 [node name="Character" type="CharacterBody2D" unique_id=908007278 groups=["character"]]
 texture_filter = 6

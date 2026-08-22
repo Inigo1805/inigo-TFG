@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Character
 
-# --- ENUMERADO DE GEOLOCALIZACIÓN ---
+# ENUMERADO DE GEOLOCALIZACIÓN
 enum ZonaEscenario {
 	ON_PLATFORM,
 	AIR_ABOVE_PLATFORM,
@@ -105,7 +105,7 @@ func _physics_process(delta: float) -> void:
 		if self.grounded: SFX.land.play()
 	self.grounded = ground_check.is_colliding()
 
-	# --- ACTUALIZAR LA PERCEPCIÓN DE LA ZONA ---
+	# ACTUALIZAR LA PERCEPCIÓN DE LA ZONA
 	_actualizar_zona_actual()
 
 	# Manejar el temporizador de bloqueo del Wall Jump
@@ -155,19 +155,16 @@ func _actualizar_zona_actual() -> void:
 		zona_actual = ZonaEscenario.AIR_NEAR_WALL
 		return
 		
-	# 1. ¿Está sobre la plataforma recta?
 	if void_check and void_check.is_colliding():
 		zona_actual = ZonaEscenario.AIR_ABOVE_PLATFORM
 		return
 		
-	# 2. Si el central no toca, comprobamos los diagonales (Vacío Seguro)
 	var diagonal_izquierdo_toca = void_check_left and void_check_left.is_colliding()
 	var diagonal_derecho_toca = void_check_right and void_check_right.is_colliding()
 	
 	if diagonal_izquierdo_toca or diagonal_derecho_toca:
 		zona_actual = ZonaEscenario.AIR_ABOVE_VOID_SAFE
 	else:
-		# 3. Ninguno de los 3 rayos ve tierra firme: Peligro absoluto
 		zona_actual = ZonaEscenario.AIR_ABOVE_VOID_DANGER
 
 func mover_lateralmente(dir: float) -> void:
@@ -190,7 +187,7 @@ func mover_lateralmente(dir: float) -> void:
 	var accel: float
 	if not grounded:
 		target_speed *= 1.2
-		# Ahora, gracias a la zona muerta, en cuanto sueltes el joystick 
+		# Gracias a la zona muerta, en cuanto se suelte el joystick 
 		# caerá por debajo de 0.1, 'dir' será 0.0, y activará el 0.02 instantáneo.
 		accel = SPEED * (0.8 if dir != 0 else 0.02)
 	else:
@@ -221,7 +218,7 @@ func _ejecutar_accion(anim_name: String, es_suelo: bool) -> void:
 		root_playback.travel("AtaquesSuelo")
 		ataque_suelo_playback.travel(anim_name)
 		if anim_name == "block":
-			pass #TODO sonido block
+			pass
 		elif anim_name.ends_with("_strong"):
 			SFX.punch_woosh_2.play()
 		else:
@@ -325,7 +322,6 @@ func aplicar_block_stun(dir: Vector2, force: float) -> void:
 	# Lanzamos animaciones en el State Machine de Damage
 	root_playback.travel("Damage")
 	if damage_playback:
-		# TODO: crear una animación propia de rebote de escudo "block_stun" 
 		damage_playback.travel("hitstun") 
 	# Feedback visual (Color naranja/amarillo para diferenciarlo de recibir daño)
 	var tween = create_tween()
@@ -341,7 +337,7 @@ func aplicar_block_stun(dir: Vector2, force: float) -> void:
 	stun_timer.timeout.connect(_on_stun_timeout, CONNECT_ONE_SHOT)
 	stun_timer.start()
 	
-# --- FUNCIÓN LLAMADA AL TERMINAR EL TIMER ---
+# FUNCIÓN LLAMADA AL TERMINAR EL TIMER
 func _on_stun_timeout() -> void:
 	if is_hitstun:
 		is_hitstun = false

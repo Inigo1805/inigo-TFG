@@ -41,7 +41,7 @@ func _ready() -> void:
 	player_1.muerto.connect(_on_jugador_muerto.bind(player_1))
 	player_2.muerto.connect(_on_jugador_muerto.bind(player_2))
 	
-	# --- Congelar personajes al inicio sin pausar el árbol ---
+	# Congelar personajes al inicio sin pausar el árbol
 	_toggle_movimiento_personajes(false)
 	
 	start_timer.timeout.connect(_on_start_timer_timeout)
