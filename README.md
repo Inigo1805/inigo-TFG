@@ -15,7 +15,7 @@ Puedes descargar la última versión compilada lista para jugar en tu sistema op
 
 ---
 
-#🏛️ Características Técnicas Principales
+#Características Técnicas Principales
 * **Desacoplamiento de Controladores:** El núcleo del personaje actúa como una API agnóstica; un nodo selector externo inyecta dinámicamente el controlador humano (`player_controller.gd`) o de IA (`ai_controller.gd`) según la selección en el menú.
 * **Inteligencia Artificial Autónoma (`AIController`):** Sistema de percepción espacial mediante `RayCast2D` para la detección en tiempo real de plataformas, bordes y abismos (`VOID_SAFE`, `VOID_DANGER`), con máquina de estados táctica.
 * **Cámara Dinámica Multiobjetivo (`CameraBrawler`):** Cálculo continuo del centro de masas entre contendientes con interpolación lineal (`lerp`) y escalado de zoom adaptativo.
