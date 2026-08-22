@@ -29,4 +29,4 @@ Si prefieres clonar el repositorio y ejecutar el proyecto directamente desde el 
 1. Descarga e instala **[Godot Engine 4.x](https://godotengine.org/)** (versión recomendada 4.7 estable).
 2. Clona este repositorio en tu máquina local:
    ```bash
-   git clone [https://github.com/TU_USUARIO/TU_REPOSITORIO.git](https://github.com/TU_USUARIO/TU_REPOSITORIO.git)
+   git clone [https://github.com/TU_USUARIO/TU_REPOSITORIO.git](https://github.com/Inigo1805/inigo-TFG)
