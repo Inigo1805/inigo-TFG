@@ -48,6 +48,7 @@ func _ready() -> void:
 	start_timer.start()
 
 func _process(_delta: float) -> void:
+	#print("FPS: %s" % [Engine.get_frames_per_second()])
 	# Como el árbol NO está pausado, esto se ejecutará perfectamente cada frame
 	if not partida_iniciada and not start_timer.is_stopped():
 		var segundos = ceil(start_timer.time_left)

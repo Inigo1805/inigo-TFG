@@ -8188,6 +8188,7 @@ position = Vector2(0, 24)
 shape = SubResource("CapsuleShape2D_pjt0s")
 
 [node name="PushArea" type="Area2D" parent="Areas" unique_id=1757874142]
+visible = false
 collision_layer = 128
 collision_mask = 128
 
@@ -8197,6 +8198,7 @@ shape = SubResource("CapsuleShape2D_kjduu")
 debug_color = Color(0.78039217, 0.42352942, 0.30980393, 0.3372549)
 
 [node name="BodySolid" type="CollisionShape2D" parent="." unique_id=1646955547]
+visible = false
 position = Vector2(0, 25.75)
 shape = SubResource("RectangleShape2D_0qfo5")
 debug_color = Color(0, 0.6, 0.69803923, 0.21568628)

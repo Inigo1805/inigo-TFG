@@ -1,7 +1,7 @@
 extends Node
 
 @onready var controlled_character: Character = get_parent().get_parent()
-var target: Character = null 
+var target: Character = null
 
 @export_group("Configuración IA")
 @export var agresividad: float = 0.85
@@ -357,10 +357,10 @@ func _recalcular_psicologia_ia() -> void:
 
 	if diferencia_vidas > 0:
 		agresividad = clamp(agresividad_base * PSICOLOGIA_MULT_VENTAJA, AGRESIVIDAD_MIN_VENTAJA, AGRESIVIDAD_MAX)
-		umbral_porcentaje_kill = KILL_PCT_VENTAJA 
+		umbral_porcentaje_kill = KILL_PCT_VENTAJA
 	elif diferencia_vidas < 0:
 		agresividad = clamp(agresividad_base * PSICOLOGIA_MULT_DESVENTAJA, AGRESIVIDAD_MIN_DESVENTAJA, AGRESIVIDAD_MAX_DESVENTAJA)
-		umbral_porcentaje_kill = KILL_PCT_DESVENTAJA 
+		umbral_porcentaje_kill = KILL_PCT_DESVENTAJA
 	else:
 		agresividad = agresividad_base
 		umbral_porcentaje_kill = KILL_PCT_BASE
@@ -413,7 +413,21 @@ func debug_estado() -> void:
 	
 	var intencion_mov = "X: %+1.1f" % _intencion_x
 	var corriendo_str = "[color=yellow]RUN[/color]" if _intencion_run else "WALK"
-	var combo_followup_str = "[color=magenta]FOLLOWUP_ON[/color]" if _en_combo_followup else "----------"
+	
+	var zona_str = ""
+	match controlled_character.zona_actual:
+		controlled_character.ZonaEscenario.ON_PLATFORM:
+			zona_str = "[color=green]PLATFORM[/color]"
+		controlled_character.ZonaEscenario.AIR_ABOVE_PLATFORM:
+			zona_str = "[color=cyan]AIR_PLAT[/color]"
+		controlled_character.ZonaEscenario.AIR_ABOVE_VOID_SAFE:
+			zona_str = "[color=yellow]VOID_SAFE[/color]"
+		controlled_character.ZonaEscenario.AIR_ABOVE_VOID_DANGER:
+			zona_str = "[color=red]VOID_DANGER[/color]"
+		controlled_character.ZonaEscenario.AIR_NEAR_WALL:
+			zona_str = "[color=orange]NEAR_WALL[/color]"
+		_:
+			zona_str = "UNKNOWN"
 
-	print_rich("|[b] IA:[/b] %-10s |[b] RIVAL:[/b] %-12s |[b] ESTADO:[/b] %-18s |[b] CONFIG:[/b] %-14s |[b] %-9s[/b] |[b] MOV:[/b] %-8s |[b] %-4s[/b] |[b] FOLLOWUP:[/b] %-12s"
-		% [IA_vidas_str, target_vidas_str, psico_str, agresividad_str, kill_pct_str, intencion_mov, corriendo_str, combo_followup_str])
+	print_rich("|[b] IA:[/b] %-10s |[b] RIVAL:[/b] %-12s |[b] ESTADO:[/b] %-18s |[b] CONFIG:[/b] %-14s |[b] %-9s[/b] |[b] MOV:[/b] %-8s |[b] %-4s[/b] |[b] ZONA:[/b] %-18s"
+		% [IA_vidas_str, target_vidas_str, psico_str, agresividad_str, kill_pct_str, intencion_mov, corriendo_str, zona_str])

@@ -92,6 +92,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Debug visual de la orientación del personaje
 	self.facing = "DER >" if visuals.scale.x < 0 else "< IZQ"
+	#debug_estado()
 
 func _physics_process(delta: float) -> void:
 	if dead:
@@ -413,7 +414,21 @@ func debug_estado() -> void:
 	var atk_str = "[color=red]ATACANDO[/color]" if is_attacking else "[color=gray]LIBRE[/color]"
 	var flip_str = "[color=yellow]LOCK[/color]" if not can_flip else "[color=cyan]FREE[/color]"
 	var mira_str = self.facing
-	var combo_val = animation_tree.get("parameters/AtaquesSuelo/conditions/quiere_combo")
-	var combo_str = "[color=magenta]COMBO_ON[/color]" if combo_val else "------"
-	print_rich("|[b] ANIM:[/b] %-25s |[b] POS:[/b] %-8s |[b] ATK:[/b] %-15s |[b] FLIP:[/b] %-12s |[b] MIRA:[/b] %-8s |[b] JAB:[/b] %-10s | V(%+4d, %+4d)"
-		% [anim_ruta, grounded_str, atk_str, flip_str, mira_str, combo_str, velocity.x, velocity.y])
+	
+	var zona_str = ""
+	match zona_actual:
+		ZonaEscenario.ON_PLATFORM:
+			zona_str = "[color=green]PLATFORM[/color]"
+		ZonaEscenario.AIR_ABOVE_PLATFORM:
+			zona_str = "[color=cyan]AIR_PLAT[/color]"
+		ZonaEscenario.AIR_ABOVE_VOID_SAFE:
+			zona_str = "[color=yellow]VOID_SAFE[/color]"
+		ZonaEscenario.AIR_ABOVE_VOID_DANGER:
+			zona_str = "[color=red]VOID_DANGER[/color]"
+		ZonaEscenario.AIR_NEAR_WALL:
+			zona_str = "[color=orange]NEAR_WALL[/color]"
+		_:
+			zona_str = "UNKNOWN"
+
+	print_rich("|[b] ANIM:[/b] %-25s |[b] POS:[/b] %-8s |[b] ATK:[/b] %-15s |[b] FLIP:[/b] %-12s |[b] MIRA:[/b] %-8s |[b] ZONA:[/b] %-18s | V(%+4d, %+4d)"
+		% [anim_ruta, grounded_str, atk_str, flip_str, mira_str, zona_str, velocity.x, velocity.y])

@@ -12,13 +12,13 @@
 script = ExtResource("1_r27sn")
 
 [node name="Character" parent="." unique_id=908007278 instance=ExtResource("2_4d3oi")]
-position = Vector2(317, -366)
+position = Vector2(400, -354)
 
 [node name="Character2" parent="." unique_id=1347353149 instance=ExtResource("2_4d3oi")]
-position = Vector2(-307, -365)
+position = Vector2(-400, -354)
 
 [node name="Character2_IA" parent="." unique_id=947072040 groups=["IA"] instance=ExtResource("2_4d3oi")]
-position = Vector2(-305, -366)
+position = Vector2(-400, -354)
 
 [node name="HUD" parent="." unique_id=1001647321 instance=ExtResource("3_4d3oi")]
 
@@ -30,7 +30,7 @@ personaje_1 = NodePath("../Character")
 personaje_2 = NodePath("../Character2")
 limite_inferior = 400.0
 zoom_minimo = 0.1
-zoom_maximo = 0.5
+zoom_maximo = 0.6
 
 [node name="Escenario" parent="." unique_id=2090195586 instance=ExtResource("5_l402w")]
 

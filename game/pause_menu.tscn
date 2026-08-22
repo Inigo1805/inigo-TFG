@@ -171,17 +171,17 @@ offset_right = 100.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_fhqd4")
 alignment = 1
 
 [node name="ResumeButton" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1097500112]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 23
-text = "Resume"
+text = "Reanudar"
 autowrap_mode = 2
 
-[node name="ControlsButton" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1243283879]
+[node name="ControlsButton" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=688833559]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 23
 text = "Controles"
@@ -192,7 +192,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("2_fhqd4")
 theme_override_font_sizes/font_size = 23
-text = "Quit"
+text = "Salir al menú"
 
 [node name="Controles" type="TextureRect" parent="." unique_id=984680394]
 layout_mode = 1
@@ -220,5 +220,5 @@ stream = ExtResource("3_lw33h")
 stream = ExtResource("4_63an3")
 
 [connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/ResumeButton" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/ControlsButton" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/QuitButton" to="." method="_on_quit_pressed"]

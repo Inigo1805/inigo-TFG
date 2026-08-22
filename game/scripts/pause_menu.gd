@@ -22,9 +22,11 @@ func _process(_delta: float) -> void:
 	listener()
 
 func _configurar_foco_vecinos() -> void:
-	if resume_button and quit_button:
-		resume_button.focus_neighbor_bottom = resume_button.get_path_to(quit_button)
-		quit_button.focus_neighbor_top = quit_button.get_path_to(resume_button)
+	if resume_button and controls_button and quit_button:
+		resume_button.focus_neighbor_bottom = resume_button.get_path_to(controls_button)
+		controls_button.focus_neighbor_top = controls_button.get_path_to(resume_button)
+		controls_button.focus_neighbor_bottom = controls_button.get_path_to(quit_button)
+		quit_button.focus_neighbor_top = quit_button.get_path_to(controls_button)
 
 # Pausa el juego y muestra el menú
 func pause() -> void:
