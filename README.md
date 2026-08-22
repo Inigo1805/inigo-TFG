@@ -36,7 +36,7 @@ Si prefieres clonar el repositorio y ejecutar el proyecto directamente desde el 
 ---
 
 ## Autor
-Desarrollado por Iñigo Aramburu Valdepeñas
-Tutora: Inés González Rodríguez
-Trabajo de Fin de Grado - Grado en Ingeniería Informática
+Desarrollado por Iñigo Aramburu Valdepeñas -
+Tutora: Inés González Rodríguez -
+Trabajo de Fin de Grado - Grado en Ingeniería Informática -
 Universidad de Cantabria
