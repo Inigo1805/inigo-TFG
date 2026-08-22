@@ -290,6 +290,7 @@ func deadzone_kill(respawn_position: Node2D) -> void:
 
 func reset_player(respawn_position: Node2D) -> void:
 	dead = false
+	saltos_realizados = 0
 	set_physics_process(true)
 	animation_tree.active = true
 	root_playback.travel("Movimiento")

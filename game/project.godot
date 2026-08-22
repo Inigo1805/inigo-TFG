@@ -30,7 +30,7 @@ config/icon="res://icon.svg"
 
 [audio]
 
-buses/default_bus_layout="uid://6qbsmiof476l"
+buses/default_bus_layout=""
 
 [autoload]
 

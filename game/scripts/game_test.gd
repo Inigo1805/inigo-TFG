@@ -11,7 +11,7 @@ extends Node2D
 @onready var countdown_label: Label = $CanvasLayer/CountdownLabel
 @onready var music: AudioStreamPlayer = $"Music/Music1-BattleArcade"
 
-@export_file("*.tscn") var main_menu_path: String = "res://main_menu.tscn"
+@export_file("*.tscn") var main_menu_path: String = "res://escenas/main_menu.tscn"
 
 var player_2: Character = null
 var muertes_jugadores: Dictionary = {}
@@ -53,7 +53,7 @@ func _process(_delta: float) -> void:
 	if not partida_iniciada and not start_timer.is_stopped():
 		var segundos = ceil(start_timer.time_left)
 		if segundos > 1:
-			countdown_label.text = str(segundos - 1)
+			countdown_label.text = str(int(segundos - 1))
 		else:
 			countdown_label.text = "FIGHT!"
 	else:

@@ -1,7 +1,7 @@
 extends Control
 
 # Cambiamos la ruta para que apunte a la escena de selección de personajes
-@export_file("*.tscn") var character_select_path: String = "res://character_select.tscn"
+@export_file("*.tscn") var character_select_path: String = "res://escenas/character_select.tscn"
 
 @export var parallax_strength: float = 40.0
 @export var lerp_speed: float = 5.0

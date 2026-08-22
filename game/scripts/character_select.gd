@@ -1,7 +1,7 @@
 extends Control
 
-@export_file("*.tscn") var game_scene_path: String = "res://game_test.tscn"
-@export_file("*.tscn") var main_menu_path: String = "res://main_menu.tscn"
+@export_file("*.tscn") var game_scene_path: String = "res://escenas/game_test.tscn"
+@export_file("*.tscn") var main_menu_path: String = "res://escenas/main_menu.tscn"
 
 @export var parallax_strength: float = 40.0
 @export var lerp_speed: float = 5.0

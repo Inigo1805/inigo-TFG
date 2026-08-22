@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cuck6uqdvqclr"]
 
 [ext_resource type="Script" uid="uid://kg0a0x2tua2q" path="res://scripts/game_test.gd" id="1_r27sn"]
-[ext_resource type="PackedScene" uid="uid://db5fsxvewxs50" path="res://character.tscn" id="2_4d3oi"]
-[ext_resource type="PackedScene" uid="uid://bog6hkuij7255" path="res://hud.tscn" id="3_4d3oi"]
+[ext_resource type="PackedScene" uid="uid://db5fsxvewxs50" path="res://escenas/character.tscn" id="2_4d3oi"]
+[ext_resource type="PackedScene" uid="uid://bog6hkuij7255" path="res://escenas/hud.tscn" id="3_4d3oi"]
 [ext_resource type="Script" uid="uid://d0qg1mjahiu84" path="res://scripts/cameraBrawler.gd" id="5_5jd2a"]
-[ext_resource type="PackedScene" uid="uid://da7wxc2ca5c3p" path="res://escenario.tscn" id="5_l402w"]
-[ext_resource type="PackedScene" uid="uid://dklqo43run32r" path="res://pause_menu.tscn" id="6_m7b8h"]
+[ext_resource type="PackedScene" uid="uid://da7wxc2ca5c3p" path="res://escenas/escenario.tscn" id="5_l402w"]
+[ext_resource type="PackedScene" uid="uid://dklqo43run32r" path="res://escenas/pause_menu.tscn" id="6_m7b8h"]
 [ext_resource type="AudioStream" uid="uid://bix3nnwfrswll" path="res://Audio/Battle Arcade (16-Bit Arcade No Copyright Music)LoopSec23.mp3" id="7_i8gei"]
 
 [node name="game_test" type="Node2D" unique_id=1036480288]
@@ -29,8 +29,8 @@ script = ExtResource("5_5jd2a")
 personaje_1 = NodePath("../Character")
 personaje_2 = NodePath("../Character2")
 limite_inferior = 400.0
-zoom_minimo = 0.1
-zoom_maximo = 0.6
+zoom_minimo = 0.4
+zoom_maximo = 0.8
 
 [node name="Escenario" parent="." unique_id=2090195586 instance=ExtResource("5_l402w")]
 

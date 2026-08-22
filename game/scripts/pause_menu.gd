@@ -2,7 +2,7 @@ extends Control
 
 var pauseMenuShows = false
 var showing_controls = false
-@export_file("*.tscn") var main_menu_path: String = "res://main_menu.tscn"
+@export_file("*.tscn") var main_menu_path: String = "res://escenas/main_menu.tscn"
 
 # Referencias basadas exactamente en tu jerarquía de nodos
 @onready var resume_button: Button = $PanelContainer/ColorRect/VBoxContainer/ResumeButton
