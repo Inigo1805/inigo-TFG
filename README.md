@@ -2,7 +2,6 @@
 
 [![Godot Engine](https://img.shields.io/badge/Godot-4.x-blue?style=for-the-badge&logo=godotengine&logoColor=white)](https://godotengine.org/)
 [![GDScript](https://img.shields.io/badge/Language-GDScript-yellow?style=for-the-badge&logo=codeforces&logoColor=white)](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
 Prototipo funcional de videojuego del subgénero *Platform Fighter* desarrollado como **Trabajo de Fin de Grado (TFG)**. El proyecto implementa un motor de combate bidimensional basado en componentes, un sistema de inteligencia artificial autónomo mediante percepción espacial por sensores (*RayCasts*), y una arquitectura modular desacoplada.
 
