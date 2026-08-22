@@ -29,7 +29,7 @@ Si prefieres clonar el repositorio y ejecutar el proyecto directamente desde el 
 1. Descarga e instala [Godot Engine 4.x](https://godotengine.org/) (versión recomendada 4.x estable).
 2. Clona este repositorio en tu máquina local:
    ```bash
-   git clone [https://github.com/Inigo1805/inigo-TFG.git](https://github.com/Inigo1805/inigo-TFG.git)
+   git clone https://github.com/Inigo1805/inigo-TFG.git
 3. Abre Godot Engine, haz clic en **Import** y selecciona el archivo `project.godot` dentro de la carpeta del proyecto.
 4. Pulsa **F5** para ejecutar la escena principal (`main_menu.tscn`).
 
