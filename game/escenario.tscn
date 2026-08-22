@@ -372,6 +372,8 @@ distance = -0.57838684
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ehore"]
 
+[sub_resource type="DrawableTexture2D" id="DrawableTexture2D_g4v7s"]
+
 [node name="Escenario" type="Node2D" unique_id=2090195586]
 texture_filter = 1
 scale = Vector2(5, 5)
@@ -465,6 +467,32 @@ shape = SubResource("WorldBoundaryShape2D_tdaqw")
 position = Vector2(300, 0)
 rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_ehore")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="Deadzone" unique_id=161821541]
+
+[node name="Sprite2D" type="Sprite2D" parent="Deadzone/CanvasGroup" unique_id=959980866]
+modulate = Color(1, 0, 0.05882353, 0.1254902)
+position = Vector2(628.6, 1.3053417e-05)
+scale = Vector2(10.35625, 16.874998)
+texture = SubResource("DrawableTexture2D_g4v7s")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Deadzone/CanvasGroup" unique_id=314600807]
+modulate = Color(1, 0, 0.05882353, 0.1254902)
+position = Vector2(-628.7001, -1.5616417e-05)
+scale = Vector2(10.353126, 16.875)
+texture = SubResource("DrawableTexture2D_g4v7s")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Deadzone/CanvasGroup" unique_id=1798192512]
+modulate = Color(1, 0, 0.05882353, 0.1254902)
+position = Vector2(-0.09999633, 353.4)
+scale = Vector2(9.290626, 5.8312497)
+texture = SubResource("DrawableTexture2D_g4v7s")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Deadzone/CanvasGroup" unique_id=223094801]
+modulate = Color(1, 0, 0.05882353, 0.1254902)
+position = Vector2(-0.09996939, -408.69998)
+scale = Vector2(9.290625, 4.1031246)
+texture = SubResource("DrawableTexture2D_g4v7s")
 
 [node name="RespawnPosition" type="Node2D" parent="." unique_id=501159223]
 position = Vector2(0, -150)

@@ -9,6 +9,7 @@ extends Node2D
 
 @onready var start_timer: Timer = $StartTimer
 @onready var countdown_label: Label = $CanvasLayer/CountdownLabel
+@onready var music: AudioStreamPlayer = $"Music/Music1-BattleArcade"
 
 @export_file("*.tscn") var main_menu_path: String = "res://main_menu.tscn"
 
@@ -60,6 +61,7 @@ func _process(_delta: float) -> void:
 func _on_start_timer_timeout() -> void:
 	partida_iniciada = true
 	_toggle_movimiento_personajes(true)
+	music.play()
 	# Damos un pequeño respiro para que se vea el "FIGHT!" y borramos el texto
 	await get_tree().create_timer(0.6).timeout
 	countdown_label.text = ""

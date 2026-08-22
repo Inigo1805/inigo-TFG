@@ -1,17 +1,18 @@
 [gd_scene format=3 uid="uid://db5fsxvewxs50"]
 
-[ext_resource type="Script" uid="uid://bpyroh6xf5j6x" path="res://scripts/player_character/Character.gd" id="1_pjt0s"]
+[ext_resource type="Script" uid="uid://bpyroh6xf5j6x" path="res://scripts/player_character/character.gd" id="1_pjt0s"]
 [ext_resource type="SpriteFrames" uid="uid://blhffcrrtrdyv" path="res://sprites/animaciones/dark/dark.tres" id="2_7tnxx"]
-[ext_resource type="Script" uid="uid://bfwcm22kyp51j" path="res://scripts/hitboxes/Hurtbox.gd" id="3_wa5vi"]
-[ext_resource type="Script" uid="uid://bjsy32x873myg" path="res://scripts/hitboxes/Hitbox.gd" id="3_wfnr8"]
+[ext_resource type="Script" uid="uid://bfwcm22kyp51j" path="res://scripts/hitboxes/hurtbox.gd" id="3_wa5vi"]
+[ext_resource type="Script" uid="uid://bjsy32x873myg" path="res://scripts/hitboxes/hitbox.gd" id="3_wfnr8"]
 [ext_resource type="Script" uid="uid://ccmvdod3awu25" path="res://scripts/player_character/AIController.gd" id="5_px5sl"]
-[ext_resource type="Script" uid="uid://wrwo765t356u" path="res://scripts/player_character/PlayerController.gd" id="6_0qfo5"]
+[ext_resource type="Script" uid="uid://wrwo765t356u" path="res://scripts/player_character/playerController.gd" id="6_0qfo5"]
 [ext_resource type="Script" uid="uid://2xkg1kaicox0" path="res://sfx.gd" id="7_wdpcj"]
 [ext_resource type="AudioStream" uid="uid://bit1ia56nwinh" path="res://Audio/jump.mp3" id="7_yxww1"]
 [ext_resource type="AudioStream" uid="uid://cjbmvu4j1pa6r" path="res://Audio/land.mp3" id="9_7tnxx"]
 [ext_resource type="AudioStream" uid="uid://dekbj3er4sw7r" path="res://Audio/punch_hit.mp3" id="10_bwfjh"]
 [ext_resource type="AudioStream" uid="uid://b68sps1t7e4ts" path="res://Audio/punch_woosh_1.mp3" id="11_x1sy7"]
 [ext_resource type="AudioStream" uid="uid://drewf1ch2bfg8" path="res://Audio/punch_woosh_2.mp3" id="12_sm1rv"]
+[ext_resource type="AudioStream" uid="uid://d6j1j3iwxjxd" path="res://Audio/parry.mp3" id="13_bwfjh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wfnr8"]
 radius = 18.0
@@ -8254,5 +8255,9 @@ stream = ExtResource("11_x1sy7")
 [node name="PunchWoosh2" type="AudioStreamPlayer2D" parent="SFX" unique_id=1761836859]
 stream = ExtResource("12_sm1rv")
 volume_db = 11.391
+
+[node name="Parry" type="AudioStreamPlayer2D" parent="SFX" unique_id=1295675060]
+stream = ExtResource("13_bwfjh")
+volume_db = -5.0
 
 [connection signal="timeout" from="Timers/InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bix3nnwfrswll"
+path="res://.godot/imported/Battle Arcade (16-Bit Arcade No Copyright Music)LoopSec23.mp3-f1c4e50d63fcadcca61907060dce8437.mp3str"
+
+[deps]
+
+source_file="res://Audio/Battle Arcade (16-Bit Arcade No Copyright Music)LoopSec23.mp3"
+dest_files=["res://.godot/imported/Battle Arcade (16-Bit Arcade No Copyright Music)LoopSec23.mp3-f1c4e50d63fcadcca61907060dce8437.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=22.95
+bpm=0.0
+beat_count=0
+bar_beats=4

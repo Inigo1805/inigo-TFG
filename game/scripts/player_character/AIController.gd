@@ -162,12 +162,13 @@ func _evaluar_intenciones_tacticas() -> void:
 		_ejecutar_retirada_táctica()
 
 	if target.is_hitstun:
-		_ejecutar_combo_o_remate(dist_x, diff_y)
-		return
+		if _ejecutar_combo_o_remate(dist_x, diff_y):
+			return
 
 	if mi_zona == controlled_character.ZonaEscenario.ON_PLATFORM or mi_zona == controlled_character.ZonaEscenario.AIR_ABOVE_PLATFORM:
 		if (zona_target == target.ZonaEscenario.AIR_ABOVE_VOID_DANGER or zona_target == target.ZonaEscenario.AIR_ABOVE_VOID_SAFE):
-			if randf() < agresividad and controlled_character.saltos_realizados == 0 and target.porcentaje_daño > OFFSTAGE_DANIO_MIN:
+			# BUG Si el rival está en el vacío mortal, prohibido perseguirle a lo loco
+			if zona_target != target.ZonaEscenario.AIR_ABOVE_VOID_DANGER and randf() < agresividad and controlled_character.saltos_realizados == 0 and target.porcentaje_daño > OFFSTAGE_DANIO_MIN:
 				_ejecutar_offstage_chase(dist_x, diff_y)
 				return
 			else:
@@ -199,7 +200,12 @@ func _evaluar_defensa_imediata() -> void:
 
 # RUTINAS COMBINADAS DE COMBATE
 
-func _ejecutar_combo_o_remate(dist_x: float, diff_y: float) -> void:
+func _ejecutar_combo_o_remate(dist_x: float, diff_y: float) -> bool:
+	# Si el objetivo está en el aire en una zona peligrosa (vacío), 
+	# cancelamos el combo/remate para evitar que la IA se ponga en peligro.
+	if target.zona_actual == controlled_character.ZonaEscenario.AIR_ABOVE_VOID_DANGER:
+		return false
+
 	var abs_x = abs(dist_x)
 	_intencion_x = sign(dist_x)
 	_intencion_run = true
@@ -209,6 +215,7 @@ func _ejecutar_combo_o_remate(dist_x: float, diff_y: float) -> void:
 
 	if abs_x < distancia_ataque + COMBO_FOLLOWUP_MARGEN:
 		ejecutar_ataque_segun_posicion(dist_x, diff_y)
+	return true
 
 func _ejecutar_combate_aereo_vertical(dist_x: float, diff_y: float) -> void:
 	var abs_x = abs(dist_x)

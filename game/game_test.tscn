@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://kg0a0x2tua2q" path="res://scripts/game_test.gd" id="1_r27sn"]
 [ext_resource type="PackedScene" uid="uid://db5fsxvewxs50" path="res://character.tscn" id="2_4d3oi"]
 [ext_resource type="PackedScene" uid="uid://bog6hkuij7255" path="res://hud.tscn" id="3_4d3oi"]
-[ext_resource type="Script" uid="uid://d0qg1mjahiu84" path="res://CameraBrawler.gd" id="5_5jd2a"]
+[ext_resource type="Script" uid="uid://d0qg1mjahiu84" path="res://scripts/cameraBrawler.gd" id="5_5jd2a"]
 [ext_resource type="PackedScene" uid="uid://da7wxc2ca5c3p" path="res://escenario.tscn" id="5_l402w"]
 [ext_resource type="PackedScene" uid="uid://dklqo43run32r" path="res://pause_menu.tscn" id="6_m7b8h"]
+[ext_resource type="AudioStream" uid="uid://bix3nnwfrswll" path="res://Audio/Battle Arcade (16-Bit Arcade No Copyright Music)LoopSec23.mp3" id="7_i8gei"]
 
 [node name="game_test" type="Node2D" unique_id=1036480288]
 script = ExtResource("1_r27sn")
@@ -53,3 +54,11 @@ process_mode = 3
 wait_time = 4.0
 one_shot = true
 autostart = true
+
+[node name="Music" type="Node" parent="." unique_id=1114449482]
+
+[node name="Music1-BattleArcade" type="AudioStreamPlayer" parent="Music" unique_id=472166366]
+process_mode = 3
+stream = ExtResource("7_i8gei")
+volume_db = -15.0
+parameters/looping = true

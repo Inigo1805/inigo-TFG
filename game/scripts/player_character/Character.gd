@@ -273,12 +273,11 @@ func take_damage(damage: float, knockback_vector: Vector2, knockback_force: floa
 func deadzone_kill(respawn_position: Node2D) -> void:
 	#print("player dead")
 	dead = true
-	#velocity = Vector2.ZERO
+	muerto.emit()
 	animation_tree.active = false
 	animation_player.play("dead")
 	
 	# Notificamos la muerte inmediatamente a la escena/HUD
-	muerto.emit()
 	
 	await animation_player.animation_finished
 	
@@ -318,6 +317,7 @@ func aplicar_block_stun(dir: Vector2, force: float) -> void:
 	# Interrumpuimos acciones y aplicamos estado de hitstun (aunque no sea un "hit")
 	is_attacking = false
 	is_hitstun = true
+	SFX.parry.play()
 	# Empuje físico al atacante (hacia atrás por rebotar contra el escudo)
 	velocity = dir.normalized() * force
 	# Lanzamos animaciones en el State Machine de Damage

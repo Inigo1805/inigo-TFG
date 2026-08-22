@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://hl2smu6xrx8b" path="res://sprites/gui/GUI.png" id="3_6pq1k"]
 [ext_resource type="AudioStream" uid="uid://crvu64fun0lap" path="res://sprites/gui/092_Pause_04.wav" id="3_lw33h"]
 [ext_resource type="AudioStream" uid="uid://rjnqgxv31rjm" path="res://sprites/gui/098_Unpause_04.wav" id="4_63an3"]
+[ext_resource type="Texture2D" uid="uid://d8mniean0efn" path="res://sprites/controles.png" id="4_d3xb4"]
 
 [sub_resource type="Animation" id="Animation_qbdvg"]
 length = 0.001
@@ -180,12 +181,35 @@ theme_override_font_sizes/font_size = 23
 text = "Resume"
 autowrap_mode = 2
 
+[node name="ControlsButton" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1243283879]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Controles"
+autowrap_mode = 2
+
 [node name="QuitButton" type="Button" parent="PanelContainer/ColorRect/VBoxContainer" unique_id=1508341602]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("2_fhqd4")
 theme_override_font_sizes/font_size = 23
 text = "Quit"
+
+[node name="Controles" type="TextureRect" parent="." unique_id=984680394]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -409.5
+offset_top = -436.7057
+offset_right = 409.5
+offset_bottom = 436.7057
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_d3xb4")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="SFX" type="Node" parent="." unique_id=1981566214]
 
@@ -196,4 +220,5 @@ stream = ExtResource("3_lw33h")
 stream = ExtResource("4_63an3")
 
 [connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/ResumeButton" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="PanelContainer/ColorRect/VBoxContainer/QuitButton" to="." method="_on_quit_pressed"]
