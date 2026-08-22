@@ -8,7 +8,7 @@ const DOUBLE_TAP_DELAY: float = Globals.DOUBLE_TAP_DELAY
 
 func _ready() -> void:
 	# Si este personaje es una CPU, desactivamos este controlador
-	if self.get_parent().get_parent().is_in_group("cpu"): 
+	if self.get_parent().get_parent().is_in_group("IA"): 
 		set_process_unhandled_input(false)
 		set_physics_process(false)
 

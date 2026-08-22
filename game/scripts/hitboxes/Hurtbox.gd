@@ -23,12 +23,17 @@ func _on_area_entered(hitbox: Area2D) -> void:
 		if atacante.has_method("aplicar_block_stun"):
 			# Mandamos al atacante hacia atrás por haber sido bloqueado
 			var dir_retroceso = -hitbox.current_knockback_vector 
-			atacante.aplicar_block_stun(dir_retroceso, 200.0)
+			atacante.aplicar_block_stun(dir_retroceso, 100.0)
 			
 		print("¡Ataque bloqueado y contraatacado!")
-		return # IMPORTANTE: Evitamos que se llame a take_damage
+		Globals.aplicar_impact_frames_parry()
+		return
+	
+	# --- CASO B: INVULNERABLE ---
+	if victima.invulnerable:
+		return
 
-	# --- CASO B: DAÑO NORMAL ---
+	# --- CASO C: DAÑO NORMAL ---
 	if victima.has_method("take_damage"):
 		victima.take_damage(hitbox.damage, hitbox.current_knockback_vector, hitbox.knockback_force)
 		

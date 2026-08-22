@@ -49,10 +49,12 @@ func _on_player_2_damage_changed(new_percentage: float, _char: Character) -> voi
 func _on_player_1_muerto() -> void:
 	vidas_p1 = max(0, vidas_p1 - 1)
 	_actualizar_texto_vidas()
+	p1_label.text = "0.0%"
 
 func _on_player_2_muerto() -> void:
 	vidas_p2 = max(0, vidas_p2 - 1)
 	_actualizar_texto_vidas()
+	p2_label.text = "0.0%"
 
 func _actualizar_texto_vidas() -> void:
 	p1_vidas_label.text = "Vidas: %d" % vidas_p1

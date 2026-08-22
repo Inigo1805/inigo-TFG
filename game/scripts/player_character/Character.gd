@@ -18,7 +18,9 @@ enum ZonaEscenario {
 @onready var timer_salto: Timer = $Timers/JumpHeightTimer
 @onready var combo_timer: Timer = $Timers/ComboTimer 
 @onready var stun_timer: Timer = $Timers/StunTimer
+@onready var invulnerability_timer: Timer = $Timers/InvulnerabilityTimer
 @onready var animation_tree: AnimationTree = $AnimationTree
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: AnimatedSprite2D = $Visuals/Sprite
 @onready var push_area: Area2D = $Areas/PushArea
 @onready var visuals: Node2D = $Visuals
@@ -58,6 +60,7 @@ var is_hitstun: bool = false
 var porcentaje_daño: float = 0.0 
 var push_velocity: float = 0.0
 var dead = false
+var invulnerable = false
 
 # CONTROL GEOGRÁFICO Y WALLJUMP
 var zona_actual: ZonaEscenario = ZonaEscenario.ON_PLATFORM
@@ -91,7 +94,9 @@ func _process(_delta: float) -> void:
 	self.facing = "DER >" if visuals.scale.x < 0 else "< IZQ"
 
 func _physics_process(delta: float) -> void:
-	if dead: return
+	if dead:
+		move_and_slide()
+		return
 	
 	# Sincronizar el suelo con el hilo de físicas
 	if not self.grounded:
@@ -266,18 +271,18 @@ func take_damage(damage: float, knockback_vector: Vector2, knockback_force: floa
 	stun_timer.start()
 
 func deadzone_kill(respawn_position: Node2D) -> void:
-	print("player dead")
+	#print("player dead")
 	dead = true
+	#velocity = Vector2.ZERO
+	animation_tree.active = false
+	animation_player.play("dead")
 	
 	# Notificamos la muerte inmediatamente a la escena/HUD
 	muerto.emit()
 	
-	# Si la escena ya no existe o el personaje salió del árbol (por cambiar de escena), detenemos la ejecución
-	if not is_inside_tree():
-		return
-
-	# Usamos un temporizador ligado al proceso del nodo
-	await get_tree().create_timer(1.0, false).timeout
+	await animation_player.animation_finished
+	
+	set_physics_process(false)
 	
 	# Comprobamos nuevamente antes de intentar reaparecer por si la escena cambió durante la espera
 	if is_inside_tree():
@@ -285,8 +290,29 @@ func deadzone_kill(respawn_position: Node2D) -> void:
 
 func reset_player(respawn_position: Node2D) -> void:
 	dead = false
+	set_physics_process(true)
+	animation_tree.active = true
+	root_playback.travel("Movimiento")
 	porcentaje_daño = 0
+	velocity = Vector2.ZERO
 	position = respawn_position.global_position
+	invulnerability_timer.start()
+	invulnerable = true
+	_aplicar_efecto_invulnerabilidad(true)
+
+func _aplicar_efecto_invulnerabilidad(activo: bool) -> void:
+	if activo:
+		while invulnerable:
+			sprite.modulate = Color(2, 2, 2, 1)
+			await get_tree().create_timer(0.15).timeout
+			if not invulnerable: break
+			sprite.modulate = Color(1, 1, 1, 0.4)
+			await get_tree().create_timer(0.15).timeout
+		sprite.modulate = Color(1, 1, 1, 1)
+
+func _on_invulnerability_timer_timeout() -> void:
+	invulnerable = false
+	_aplicar_efecto_invulnerabilidad(false)
 
 func aplicar_block_stun(dir: Vector2, force: float) -> void:
 	# Interrumpuimos acciones y aplicamos estado de hitstun (aunque no sea un "hit")

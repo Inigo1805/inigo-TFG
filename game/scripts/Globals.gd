@@ -19,7 +19,7 @@ const MAX_FALL_SPEED_FASTFALL: float = 1300.0   # Límite de velocidad mucho may
 # Aturdimientos de combate
 const MIN_HITSTUN_TIME: float = 0.15
 const HITSTUN_TIME_DAMAGE_MULT: float = 0.35
-const TIEMPO_BLOCKSTUN: float = 0.3
+const TIEMPO_BLOCKSTUN: float = 0.6
 
 # Umbrales de movimiento horizontal
 const WALK_SPEED: int = 10
@@ -77,3 +77,15 @@ static func get_active_actions(actions: Array) -> Array:
 		if Input.is_action_pressed(action):
 			active.append(action)
 	return active
+	
+func aplicar_impact_frames_parry() -> void:
+	# Pausamos el tiempo del juego brevemente (ej. 0.08 segundos equivalen a ~4 o 5 frames a 60FPS)
+	Engine.time_scale = 0.01
+	
+	# if camera: camera.screen_shake(0.1, 5.0)
+	
+	# Esperamos usando un timer independiente del time_scale para que la pausa sea real
+	await get_tree().create_timer(0.3, true, false, true).timeout
+	
+	# Restauramos la velocidad normal del juego
+	Engine.time_scale = 1.0

@@ -25,6 +25,10 @@ func _ready() -> void:
 	# Nos aseguramos de que la cámara esté activa
 	make_current()
 
+func asignar_objetivos(p1: Character, p2: Character) -> void:
+	personaje_1 = p1
+	personaje_2 = p2
+
 func _physics_process(delta: float) -> void:
 	# Seguridad: Si falta alguno de los personajes, no hacemos nada
 	if not personaje_1 or not personaje_2:

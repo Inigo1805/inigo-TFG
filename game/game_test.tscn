@@ -16,7 +16,7 @@ position = Vector2(317, -366)
 [node name="Character2" parent="." unique_id=1347353149 instance=ExtResource("2_4d3oi")]
 position = Vector2(-307, -365)
 
-[node name="Character2_CPU" parent="." unique_id=947072040 groups=["cpu"] instance=ExtResource("2_4d3oi")]
+[node name="Character2_IA" parent="." unique_id=947072040 groups=["IA"] instance=ExtResource("2_4d3oi")]
 position = Vector2(-305, -366)
 
 [node name="HUD" parent="." unique_id=1001647321 instance=ExtResource("3_4d3oi")]
@@ -36,3 +36,20 @@ zoom_maximo = 0.5
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=73138283]
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=2026811987 instance=ExtResource("6_m7b8h")]
+
+[node name="CountdownLabel" type="Label" parent="CanvasLayer" unique_id=534034021]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 256
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartTimer" type="Timer" parent="." unique_id=1180697212]
+process_mode = 3
+wait_time = 4.0
+one_shot = true
+autostart = true
