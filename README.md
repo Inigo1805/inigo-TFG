@@ -10,7 +10,8 @@ Prototipo funcional de videojuego del subgénero Platform Fighter desarrollado c
 ## Descarga Directa de Ejecutables
 Puedes descargar la última versión compilada lista para jugar en tu sistema operativo:
 
-* [Descargar para Windows (juego.exe)](https://github.com/Inigo1805/inigo-TFG/raw/main/juego.exe)
+* [Descargar para Windows (TFG.exe)](https://github.com/Inigo1805/inigo-TFG/raw/main/game/TFG.exe)
+* [Descargar para Linux (TFG.x86_64)](https://github.com/Inigo1805/inigo-TFG/raw/main/game/TFG.x86_64)
 
 ---
 
