@@ -13,27 +13,27 @@ func _on_area_entered(hitbox: Area2D) -> void:
 		
 	var victima = self.owner # El Character que tiene esta Hurtbox
 	var atacante = hitbox.owner # El Character que lanzó el ataque
-	# --- CASO A: BLOQUEO ---
+	# CASO A: BLOQUEO
 	if victima.is_blocking:
-		# 1. Feedback visual para la víctima
+		# Feedback visual para la víctima
 		victima.velocity = hitbox.current_knockback_vector * (hitbox.knockback_force * 0.3)
 		_efecto_visual_bloqueo(victima)
 		
-		# 2. CASTIGO AL ATACANTE (Añadir un pequeño retroceso o stun)
+		# CASTIGO AL ATACANTE
 		if atacante.has_method("aplicar_block_stun"):
 			# Mandamos al atacante hacia atrás por haber sido bloqueado
 			var dir_retroceso = -hitbox.current_knockback_vector 
 			atacante.aplicar_block_stun(dir_retroceso, 100.0)
 			
-		print("¡Ataque bloqueado y contraatacado!")
+		#print("¡Ataque bloqueado y contraatacado!")
 		Globals.aplicar_impact_frames_parry()
 		return
 	
-	# --- CASO B: INVULNERABLE ---
+	# CASO B: INVULNERABLE
 	if victima.invulnerable:
 		return
 
-	# --- CASO C: DAÑO NORMAL ---
+	# CASO C: NORMAL
 	if victima.has_method("take_damage"):
 		victima.take_damage(hitbox.damage, hitbox.current_knockback_vector, hitbox.knockback_force)
 		

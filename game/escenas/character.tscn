@@ -7942,7 +7942,6 @@ animation = &"basic_idle1"
 frame = 1
 
 [node name="Hitboxes" type="Node2D" parent="Visuals" unique_id=1634018086]
-visible = false
 
 [node name="Tilts" type="Node2D" parent="Visuals/Hitboxes" unique_id=859736820]
 
@@ -8172,10 +8171,12 @@ target_position = Vector2(0, 800)
 collision_mask = 76
 
 [node name="RayCastVoidLeft" type="RayCast2D" parent="Areas" unique_id=845283461]
+visible = false
 target_position = Vector2(-600, 800)
 collision_mask = 76
 
 [node name="RayCastVoidRight" type="RayCast2D" parent="Areas" unique_id=408361407]
+visible = false
 target_position = Vector2(600, 800)
 collision_mask = 100
 

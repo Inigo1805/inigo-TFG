@@ -34,6 +34,10 @@ func inicializar_partida(p1: Character, p2: Character) -> void:
 	p1_label.modulate = Color.WHITE
 	p2_label.modulate = Color.WHITE
 	
+	# Asignamos el color correspondiente a cada NombreLabel según Globals
+	p1_name.modulate = _obtener_color_desde_string(Globals.player_1_color)
+	p2_name.modulate = _obtener_color_desde_string(Globals.player_2_color)
+	
 	# Aseguramos que el panel inicie oculto
 	game_over_panel.visible = false
 	_actualizar_texto_vidas()
@@ -69,6 +73,20 @@ func _actualizar_color_porcentaje(label: Label, damage: float) -> void:
 	var tween = create_tween()
 	tween.tween_property(label, "scale", Vector2(1.3, 1.3), 0.05)
 	tween.tween_property(label, "scale", Vector2(1.0, 1.0), 0.1)
+
+# Función auxiliar para convertir las opciones de string de Globals a un objeto Color
+func _obtener_color_desde_string(color_nombre: String) -> Color:
+	match color_nombre.to_lower():
+		"dark":
+			return Color(0.25, 0.15, 0.45) # Azul oscuro / morado
+		"green":
+			return Color(0.1, 0.6, 0.5)   # Verde azulado
+		"red":
+			return Color(1.0, 0.45, 0.1)  # Naranja / Rojo anaranjado
+		"yellow":
+			return Color(1.0, 0.9, 0.2)   # Amarillo
+		"white", _:
+			return Color(1.0, 0.9, 0.95)  # Blanco rosado
 
 # Solo actualiza el texto del ganador y hace visible la pantalla
 func mostrar_game_over(mensaje_ganador: String) -> void:

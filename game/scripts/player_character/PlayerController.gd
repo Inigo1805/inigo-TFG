@@ -7,20 +7,15 @@ var last_tap_time_izquierda: float = 0.0
 const DOUBLE_TAP_DELAY: float = Globals.DOUBLE_TAP_DELAY
 
 func _ready() -> void:
-	# Si este personaje es una CPU, desactivamos este controlador
 	if self.get_parent().get_parent().is_in_group("IA"): 
 		set_process_unhandled_input(false)
 		set_physics_process(false)
 
 func _physics_process(_delta: float) -> void:
-	# Movimiento Horizontal
 	var in_x = Input.get_axis("izquierda", "derecha")
-	character.input_x = in_x
-	# Salto
-	character.input_salto = Input.is_action_pressed("salto")
-	# Fast Fall (Mantenimiento de tecla)
-	character.input_fast_fall = Input.is_action_pressed("abajo")
-	# Lógica de Carrera
+	character.set_horizontal_input(in_x)
+	character.set_jump_input(Input.is_action_pressed("salto"))
+	character.set_fast_fall_input(Input.is_action_pressed("abajo"))
 	_procesar_logica_correr(in_x)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -37,12 +32,15 @@ func _unhandled_input(event: InputEvent) -> void:
 func _procesar_logica_correr(in_x: float) -> void:
 	var current_time = Time.get_ticks_msec() / 1000.0
 	if Input.is_action_just_pressed("derecha"):
-		if current_time - last_tap_time_derecha < DOUBLE_TAP_DELAY: character.is_running = true
+		if current_time - last_tap_time_derecha < DOUBLE_TAP_DELAY: 
+			character.set_running(true)
 		last_tap_time_derecha = current_time
 	if Input.is_action_just_pressed("izquierda"):
-		if current_time - last_tap_time_izquierda < DOUBLE_TAP_DELAY: character.is_running = true
+		if current_time - last_tap_time_izquierda < DOUBLE_TAP_DELAY: 
+			character.set_running(true)
 		last_tap_time_izquierda = current_time
-	if in_x == 0: character.is_running = false
+	if in_x == 0: 
+		character.set_running(false)
 
 func _decidir_ataque_a(in_x: float, in_y: float) -> void:
 	if character.grounded:

@@ -6,12 +6,12 @@ static func procesar_salto(player: Character, is_pressing: bool, timer: Timer, j
 	# Creamos una variable para registrar si se realiza un salto sin romper el flujo
 	var salto_ejecutado = false
 
-	# --- RESET AL TOCAR SUELO ---
+	# RESET AL TOCAR SUELO
 	if player.grounded:
 		player.saltos_realizados = 0
 		player.is_fast_falling = false 
 
-	# --- LÓGICA DE SALTO (Detección de flanco ascendente manual) ---
+	# LÓGICA DE SALTO (Detección de flanco ascendente manual)
 	var just_pressed = is_pressing and not player.saltando_pressed
 	
 	if just_pressed:
@@ -46,11 +46,11 @@ static func procesar_salto(player: Character, is_pressing: bool, timer: Timer, j
 			player.is_fast_falling = false
 			salto_ejecutado = true
 
-	# --- INTERRUPCIÓN (Salto Variable) ---
+	# INTERRUPCIÓN (Salto Variable)
 	if not is_pressing and player.saltando_pressed:
 		interrumpir_salto(player, timer)
 
-	# --- FAST FALL ---
+	# FAST FALL
 	if not player.grounded and player.velocity.y > 0 and player.is_fast_falling == false:
 		pass
 		

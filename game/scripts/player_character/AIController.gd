@@ -123,8 +123,8 @@ func _physics_process(delta: float) -> void:
 		_evaluar_intenciones_tacticas()
 		_tiempo_para_proxima_decision = randf_range(reaccion_min, reaccion_max)
 
-	controlled_character.input_x = _intencion_x
-	controlled_character.is_running = _intencion_run
+	controlled_character.set_horizontal_input(_intencion_x)
+	controlled_character.set_running(_intencion_run)
 
 
 # MOTOR TÁCTICO Y TOMA DE DECISIONES
@@ -373,19 +373,18 @@ func _buscar_oponente_valido() -> Character:
 	return null
 
 func _quedarse_quieto() -> void:
-	controlled_character.input_x = 0
-	controlled_character.input_salto = false
-	controlled_character.input_fast_fall = false
-	controlled_character.is_running = false
+	controlled_character.set_horizontal_input(0.0)
+	controlled_character.set_jump_input(false)
+	controlled_character.set_fast_fall_input(false)
+	controlled_character.set_running(false)
 	_intencion_x = 0.0
 	_intencion_run = false
 
 func _presionar_salto_virtual(duracion: float) -> void:
-	if controlled_character.input_salto: return
-	controlled_character.input_salto = true
+	controlled_character.set_jump_input(true)
 	await get_tree().create_timer(duracion).timeout
 	if is_instance_valid(controlled_character):
-		controlled_character.input_salto = false
+		controlled_character.set_jump_input(false)
 
 func _on_IA_died() -> void:
 	vidas_IA = max(0, vidas_IA - 1)

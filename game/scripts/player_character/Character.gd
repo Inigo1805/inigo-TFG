@@ -40,11 +40,11 @@ const JUMP_FORCE: Vector2 = Globals.PLAYER_JUMP_FORCE
 const GRAVITY: int = Globals.GRAVITY
 const PUSH_FORCE: float = Globals.PUSH_FORCE
 
-# VARIABLES DE CONTROL (Inyectadas por los controladores)
-var input_x: float = 0.0
-var input_salto: bool = false
-var input_fast_fall: bool = false
-var is_running: bool = false
+# VARIABLES DE CONTROL
+var _input_x: float = 0.0
+var _input_salto: bool = false
+var _input_fast_fall: bool = false
+var _is_running: bool = false
 
 # ESTADO
 var saltando_pressed: bool = false 
@@ -99,50 +99,40 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 	
-	# Sincronizar el suelo con el hilo de físicas
 	if not self.grounded:
 		self.grounded = ground_check.is_colliding()
 		if self.grounded: SFX.land.play()
 	self.grounded = ground_check.is_colliding()
 
-	# ACTUALIZAR LA PERCEPCIÓN DE LA ZONA
 	_actualizar_zona_actual()
 
-	# Manejar el temporizador de bloqueo del Wall Jump
 	if wall_jump_lock_timer > 0.0:
 		wall_jump_lock_timer -= delta
 
-	# Aplicar Gravedad
 	JumpFunctions.aplicar_gravedad(self, delta, GRAVITY)
 	
-	# INTERRUPCIÓN TOTAL POR HITSTUN
 	if is_hitstun:
 		move_and_slide()
 		return 
 
-	# Gestionar Fast Fall
 	if not grounded and velocity.y > 0:
-		if input_fast_fall and not is_fast_falling:
+		if _input_fast_fall and not is_fast_falling:
 			JumpFunctions.activar_fast_fall(self)
-		elif not input_fast_fall and is_fast_falling:
+		elif not _input_fast_fall and is_fast_falling:
 			JumpFunctions.cancelar_fast_fall(self)
 
-	# Acciones de Movimiento Horizontal (Aplica el filtro si está bloqueado por walljump)
-	var input_horizontal_final = 0.0 if wall_jump_lock_timer > 0.0 else input_x
+	var input_horizontal_final = 0.0 if wall_jump_lock_timer > 0.0 else _input_x
 	mover_lateralmente(input_horizontal_final)
 		
-	# Procesar Salto y Empujes por proximidad
-	var ha_saltado = JumpFunctions.procesar_salto(self, input_salto, timer_salto, JUMP_FORCE)
+	var ha_saltado = JumpFunctions.procesar_salto(self, _input_salto, timer_salto, JUMP_FORCE)
 	if ha_saltado:
 		SFX.jump.play()
-		# Si la biblioteca estática nos marca que fue un Wall Jump, encendemos el bloqueo
 		if hizo_wall_jump:
-			wall_jump_lock_timer = 0.22 # ~13 frames de inercia limpia
-			hizo_wall_jump = false # Reset de bandera
+			wall_jump_lock_timer = 0.22 
+			hizo_wall_jump = false 
 			
 	_gestionar_empuje_oponente(delta)
 	
-	# Ejecutar movimiento final y animar
 	move_and_slide()
 	_update_animation_state()
 
@@ -168,41 +158,31 @@ func _actualizar_zona_actual() -> void:
 		zona_actual = ZonaEscenario.AIR_ABOVE_VOID_DANGER
 
 func mover_lateralmente(dir: float) -> void:
-	# FILTRO DE ZONA MUERTA PARA EL MANDO
-	# Si el joystick está a menos de un 10% de su capacidad, lo forzamos a 0.
-	# Esto ignora el viaje de retorno del muelle físico.
 	if abs(dir) < 0.1:
 		dir = 0.0
 
-	# BLOQUEO POR ATAQUE EN SUELO
 	if is_attacking and grounded:
 		velocity.x = move_toward(velocity.x, 0, SPEED * 0.2)
 		return
 
-	# Calcular velocidad objetivo (Target Speed)
-	var multiplier = 1.6 if is_running else 1.0
+	# Usamos _is_running en lugar de la variable directa
+	var multiplier = 1.6 if _is_running else 1.0
 	var target_speed = dir * SPEED * multiplier
 	
-	# Calcular la aceleración/inercia según si está en el aire o en el suelo
 	var accel: float
 	if not grounded:
 		target_speed *= 1.2
-		# Gracias a la zona muerta, en cuanto se suelte el joystick 
-		# caerá por debajo de 0.1, 'dir' será 0.0, y activará el 0.02 instantáneo.
 		accel = SPEED * (0.8 if dir != 0 else 0.02)
 	else:
 		accel = SPEED * (0.2 if dir != 0 else 0.3)
 		
-	# Aplicar el cambio de velocidad progresivo
 	velocity.x = move_toward(velocity.x, target_speed, accel)
 	
-	# Volteo visual y actualización de vectores de Hitboxes
 	if can_flip and dir != 0:
 		var nueva_escala = -1 if dir > 0 else 1
 		if visuals.scale.x != nueva_escala:
 			visuals.scale.x = nueva_escala
 			actualizar_direccion_hitboxes()
-
 # FUNCIONES DE ATAQUE (Invocables desde controladores)
 
 func _ejecutar_accion(anim_name: String, es_suelo: bool) -> void:
@@ -343,9 +323,9 @@ func _on_stun_timeout() -> void:
 		is_hitstun = false
 		
 		# Limpieza profunda de inputs fantasmas para evitar arranques mecánicos raros
-		input_x = 0.0
-		input_salto = false
-		input_fast_fall = false
+		_input_x = 0.0
+		_input_salto = false
+		_input_fast_fall = false
 		
 		root_playback.travel("Movimiento")
 
@@ -376,6 +356,14 @@ func _gestionar_empuje_oponente(delta: float) -> void:
 			velocity.x += sign(diff_x) * PUSH_FORCE * delta * 60
 
 # ACCIONES
+func set_horizontal_input(value: float) -> void:
+	_input_x = value
+func set_jump_input(pressed: bool) -> void:
+	_input_salto = pressed
+func set_fast_fall_input(pressed: bool) -> void:
+	_input_fast_fall = pressed
+func set_running(running: bool) -> void:
+	_is_running = running
 func atacar_jab(): _ejecutar_accion("jab1", true)
 func atacar_tilt_up(): _ejecutar_accion("up_tilt", true)
 func atacar_tilt_down(): _ejecutar_accion("down_tilt", true)
