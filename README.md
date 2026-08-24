@@ -15,11 +15,8 @@ Puedes descargar la última versión compilada lista para jugar en tu sistema op
 
 ---
 
-## Características Técnicas Principales
-* **Desacoplamiento de Controladores:** El núcleo del personaje actúa como una API agnóstica; un nodo selector externo inyecta dinámicamente el controlador humano (`player_controller.gd`) o de IA (`ai_controller.gd`) según la selección en el menú.
-* **Inteligencia Artificial Autónoma (`AIController`):** Sistema de percepción espacial mediante `RayCast2D` para la detección en tiempo real de plataformas, bordes y abismos (`VOID_SAFE`, `VOID_DANGER`), con máquina de estados táctica.
-* **Cámara Dinámica Multiobjetivo (`CameraBrawler`):** Cálculo continuo del centro de masas entre contendientes con interpolación lineal (`lerp`) y escalado de zoom adaptativo.
-* **Optimización y Carga Asíncrona:** Uso de hilos independientes (`Threaded Loading`) para la transición fluida entre menús y la escena de combate sin bloqueos en el hilo principal.
+## Resumen
+Este Trabajo de Fin de Grado presenta el diseño y desarrollo de un prototipo funcional de videojuego de lucha en plataformas **Platform Fighter**, utilizando el motor Godot 4. El proyecto se centra en la creación de una arquitectura de software modular y desacoplada que separa la lógica de físicas y combate del control de los personajes. Como componente central, se ha implementado un sistema de inteligencia artificial basado en técnicas clásicas de videojuegos, capaz de percibir su entorno y tomar decisiones tácticas adaptativas en tiempo real. La validación del sistema demuestra la viabilidad de aplicar patrones de diseño orientados a agentes en entornos de lucha bidimensionales de alta velocidad, garantizando una experiencia de juego consistente tanto para jugadores humanos como para agentes artificiales.
 
 ---
 
