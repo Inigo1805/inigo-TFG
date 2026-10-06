@@ -89,6 +89,7 @@
 [ext_resource type="Texture2D" uid="uid://bfue5bwrc2ib6" path="res://sprites/Fondo/Sombra_2.png" id="86_rskof"]
 [ext_resource type="Texture2D" uid="uid://cufugtdwg8kxl" path="res://sprites/Fondo/Sombra_1.png" id="87_3fdrw"]
 [ext_resource type="Texture2D" uid="uid://bf2quoykt77wc" path="res://sprites/Fondo/Fondo.png" id="88_oofpu"]
+[ext_resource type="Texture2D" uid="uid://d8mniean0efn" path="res://sprites/controles.png" id="90_0mbns"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_htoi2"]
 animations = [{
@@ -413,6 +414,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "VS AI"
 
+[node name="ControlsButton" type="Button" parent="VBoxContainer" unique_id=1383439534]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Controles"
+autowrap_mode = 2
+
 [node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=1957242613]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
@@ -472,3 +480,22 @@ scroll_scale = Vector2(0.1, 0.1)
 
 [node name="Estrellitas" type="Sprite2D" parent="Fondo/Fondo_5" unique_id=1280174128]
 texture = ExtResource("88_oofpu")
+
+[node name="Controles" type="TextureRect" parent="." unique_id=1279098347]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -409.5
+offset_top = -436.7057
+offset_right = 409.5
+offset_bottom = 436.7057
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("90_0mbns")
+expand_mode = 1
+stretch_mode = 4
+
+[connection signal="pressed" from="VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]

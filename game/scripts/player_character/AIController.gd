@@ -84,7 +84,7 @@ var _tiempo_debug: float = 0.0
 # MÉTODOS VIRTUALES DE GODOT
 
 func _ready() -> void:
-	if not controlled_character.is_in_group("IA"):
+	if not controlled_character.is_in_group("cpu") and not controlled_character.is_in_group("IA"):
 		set_physics_process(false)
 		return
 		
@@ -167,7 +167,6 @@ func _evaluar_intenciones_tacticas() -> void:
 
 	if mi_zona == controlled_character.ZonaEscenario.ON_PLATFORM or mi_zona == controlled_character.ZonaEscenario.AIR_ABOVE_PLATFORM:
 		if (zona_target == target.ZonaEscenario.AIR_ABOVE_VOID_DANGER or zona_target == target.ZonaEscenario.AIR_ABOVE_VOID_SAFE):
-			# BUG Si el rival está en el vacío mortal, prohibido perseguirle a lo loco
 			if zona_target != target.ZonaEscenario.AIR_ABOVE_VOID_DANGER and randf() < agresividad and controlled_character.saltos_realizados == 0 and target.porcentaje_daño > OFFSTAGE_DANIO_MIN:
 				_ejecutar_offstage_chase(dist_x, diff_y)
 				return
@@ -201,8 +200,6 @@ func _evaluar_defensa_imediata() -> void:
 # RUTINAS COMBINADAS DE COMBATE
 
 func _ejecutar_combo_o_remate(dist_x: float, diff_y: float) -> bool:
-	# Si el objetivo está en el aire en una zona peligrosa (vacío), 
-	# cancelamos el combo/remate para evitar que la IA se ponga en peligro.
 	if target.zona_actual == controlled_character.ZonaEscenario.AIR_ABOVE_VOID_DANGER:
 		return false
 
@@ -229,9 +226,9 @@ func _ejecutar_combate_aereo_vertical(dist_x: float, diff_y: float) -> void:
 		ejecutar_ataque_segun_posicion(dist_x, diff_y)
 
 	if not controlled_character.grounded and controlled_character.velocity.y > 0 and diff_y > COMBATE_AEREO_FAST_FALL_Y:
-		controlled_character.input_fast_fall = true
+		controlled_character.set_fast_fall_input(true)
 	else:
-		controlled_character.input_fast_fall = false
+		controlled_character.set_fast_fall_input(false)
 
 func _ejecutar_offstage_chase(dist_x: float, diff_y: float) -> void:
 	_intencion_x = sign(dist_x)
@@ -248,7 +245,7 @@ func _ejecutar_offstage_chase(dist_x: float, diff_y: float) -> void:
 			_presionar_salto_virtual(SALTO_VIRTUAL_LARGO)
 
 func _procesar_neutral_suelo(dist_x: float, diff_y: float, abs_dist_x: float) -> void:
-	controlled_character.input_fast_fall = false
+	controlled_character.set_fast_fall_input(false)
 
 	if target.is_blocking and abs_dist_x < BLOQUEO_RIVAL_DIST_X:
 		_intencion_x = -sign(dist_x)
@@ -260,10 +257,10 @@ func _procesar_neutral_suelo(dist_x: float, diff_y: float, abs_dist_x: float) ->
 			_intencion_x = sign(dist_x)
 			_intencion_run = (abs_dist_x > distancia_correr)
 		else:
-			_intencion_x = 0
+			_intencion_x = 0.0
 			_intencion_run = false
 	else:
-		_intencion_x = 0
+		_intencion_x = 0.0
 		_intencion_run = false
 		ejecutar_ataque_segun_posicion(dist_x, diff_y)
 
@@ -282,7 +279,7 @@ func _ejecutar_edgeguarding(dist_x: float, diff_y: float) -> void:
 		_intencion_x = sign(dist_x)
 		_intencion_run = true
 	else:
-		_intencion_x = 0
+		_intencion_x = 0.0
 		_intencion_run = false
 		if abs(dist_x) < distancia_ataque + EDGEGUARDING_MARGEN_ATAQUE:
 			ejecutar_ataque_segun_posicion(dist_x, diff_y)
@@ -297,8 +294,8 @@ func _ejecutar_retirada_táctica() -> void:
 		_intencion_x = -sign(dist_x)
 		
 	_intencion_run = true
-	controlled_character.input_x = _intencion_x
-	controlled_character.is_running = _intencion_run
+	controlled_character.set_horizontal_input(_intencion_x)
+	controlled_character.set_running(_intencion_run)
 
 
 # SISTEMA DE SELECCIÓN DE ATAQUES

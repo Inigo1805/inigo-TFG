@@ -6,16 +6,18 @@ extends Control
 @export var parallax_strength: float = 40.0
 @export var lerp_speed: float = 5.0
 
-# Referencia a tu Node2D contenedor
 @onready var fondo: Node2D = $Fondo
 
 # Referencias a los botones de modo de juego y salida
 @onready var vs_player_button: Button = $VBoxContainer/VersusPlayerButton
 @onready var vs_ai_button: Button = $VBoxContainer/VersusAIButton
 @onready var exit_button: Button = $VBoxContainer/ExitButton
+@onready var controles: TextureRect = $Controles
+@onready var showing_controls: bool = false
 
 func _ready() -> void:
 	get_tree().paused = false
+	controles.hide()
 	
 	# Conectamos las señales de los botones
 	vs_player_button.pressed.connect(_on_vs_player_button_pressed)
@@ -60,3 +62,25 @@ func _on_vs_ai_button_pressed() -> void:
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
+
+signal any_key_pressed
+
+func _unhandled_input(event: InputEvent) -> void:
+	# Si la pantalla de controles está activa y se detecta una pulsación (teclado, ratón o mando)
+	if showing_controls and event.is_pressed() and not event.is_echo():
+		any_key_pressed.emit()
+		get_viewport().set_input_as_handled() # Consume el evento para que no interactúe con el menú
+
+func _on_controls_button_pressed() -> void:
+	if not showing_controls:
+		showing_controls = true
+		controles.show()
+		
+		# Esperamos un fotograma/pequeña pausa para evitar que el mismo clic que abrió el menú lo cierre
+		await get_tree().create_timer(0.1).timeout
+		
+		# Espera a que se emita la señal al pulsar cualquier tecla/botón
+		await any_key_pressed
+		
+		controles.hide()
+		showing_controls = false
