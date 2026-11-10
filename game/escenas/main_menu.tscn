@@ -375,16 +375,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -231.0
+offset_left = -228.0
 offset_top = -252.0
-offset_right = 231.0
+offset_right = 234.0
 offset_bottom = -190.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.654902)
 theme_override_fonts/font = ExtResource("3_48ra0")
 theme_override_font_sizes/font_size = 48
-text = "EPIC GAME NAME"
+text = "VECTOR CLASH"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=777830619]
@@ -394,10 +394,10 @@ anchor_left = 0.453
 anchor_top = 0.44300002
 anchor_right = 0.54700005
 anchor_bottom = 0.55700004
-offset_left = -30.600037
-offset_top = 36.07199
-offset_right = -31.400085
-offset_bottom = 35.92798
+offset_left = -160.60004
+offset_top = -42.42801
+offset_right = 22.599915
+offset_bottom = 114.42798
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
@@ -407,12 +407,12 @@ alignment = 1
 [node name="VersusPlayerButton" type="Button" parent="VBoxContainer" unique_id=1986704599]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "1 vs 1"
+text = "Jugador vs Jugador"
 
 [node name="VersusAIButton" type="Button" parent="VBoxContainer" unique_id=1534397649]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "VS AI"
+text = "Jugador vs IA"
 
 [node name="ControlsButton" type="Button" parent="VBoxContainer" unique_id=1383439534]
 custom_minimum_size = Vector2(0, 40)
@@ -424,8 +424,7 @@ autowrap_mode = 2
 [node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=1957242613]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Exit game
-"
+text = "Salir del juego"
 
 [node name="Fondo" type="Node2D" parent="." unique_id=268866832]
 position = Vector2(599.00006, 438.99997)
@@ -482,6 +481,7 @@ scroll_scale = Vector2(0.1, 0.1)
 texture = ExtResource("88_oofpu")
 
 [node name="Controles" type="TextureRect" parent="." unique_id=1279098347]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
