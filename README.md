@@ -3,8 +3,7 @@
 [![Godot Engine](https://img.shields.io/badge/Godot-4.x-blue?style=for-the-badge&logo=godotengine&logoColor=white)](https://godotengine.org/)
 [![GDScript](https://img.shields.io/badge/Language-GDScript-yellow?style=for-the-badge&logo=codeforces&logoColor=white)](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html)
 
-Prototipo funcional de videojuego del subgénero Platform Fighter desarrollado como Trabajo de Fin de Grado (TFG). El proyecto implementa un motor de combate bidimensional basado en componentes, un sistema de inteligencia artificial autónomo mediante percepción espacial por sensores (RayCasts), y una arquitectura modular desacoplada.
-
+Prototipo funcional de videojuego del subgénero *Platform Fighter* desarrollado en Godot 4 (TFG), que combina un motor de combate bidimensional modular con un sistema de inteligencia artificial reactiva para NPCs.
 ---
 
 ## Descarga Directa de Ejecutables
@@ -16,7 +15,7 @@ Puedes descargar la última versión compilada lista para jugar en tu sistema op
 ---
 
 ## Resumen
-Este Trabajo de Fin de Grado presenta el diseño y desarrollo de un prototipo funcional de videojuego de lucha en plataformas **Platform Fighter**, utilizando el motor Godot 4. El proyecto se centra en la creación de una arquitectura de software modular y desacoplada que separa la lógica de físicas y combate del control de los personajes. Como componente central, se ha implementado un sistema de inteligencia artificial basado en técnicas clásicas de videojuegos, capaz de percibir su entorno y tomar decisiones tácticas adaptativas en tiempo real. La validación del sistema demuestra la viabilidad de aplicar patrones de diseño orientados a agentes en entornos de lucha bidimensionales de alta velocidad, garantizando una experiencia de juego consistente tanto para jugadores humanos como para agentes artificiales.
+Este Trabajo de Fin de Grado presenta el diseño y desarrollo de un prototipo funcional de videojuego de lucha en plataformas **Platform Fighter**, utilizando el motor Godot 4. El proyecto se centra en la creación de una arquitectura de software modular y desacoplada que separa la lógica de físicas y combate del control de los personajes. Se ha implementado un sistema de inteligencia artificial basado en técnicas clásicas de videojuegos, capaz de percibir su entorno y tomar decisiones tácticas adaptativas en tiempo real. La validación del sistema demuestra la viabilidad de aplicar patrones de diseño orientados a agentes en entornos de lucha bidimensionales de alta velocidad, garantizando una experiencia de juego consistente tanto para jugadores humanos como para agentes artificiales.
 
 ---
 
