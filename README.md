@@ -3,7 +3,7 @@
 [![Godot Engine](https://img.shields.io/badge/Godot-4.x-blue?style=for-the-badge&logo=godotengine&logoColor=white)](https://godotengine.org/)
 [![GDScript](https://img.shields.io/badge/Language-GDScript-yellow?style=for-the-badge&logo=codeforces&logoColor=white)](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html)
 
-Prototipo funcional de videojuego del subgénero *Platform Fighter* desarrollado en Godot 4 (TFG), que combina un motor de combate bidimensional modular con un sistema de inteligencia artificial reactiva para NPCs.
+Este Trabajo de Fin de Grado para el grado en Ingeniería Informática en la Universidad de Cantabria, es un prototipo funcional de videojuego del subgénero *Platform Fighter* desarrollado en Godot 4, que combina un motor de combate bidimensional modular con un sistema de inteligencia artificial reactiva para NPCs.
 ---
 
 ## Descarga Directa de Ejecutables
